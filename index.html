@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">บทที่ 1 วงกลม - ค23202 คณิตศาสตร์เพิ่มเติม ม.3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Mitr:wght@400;500;600&family=Itim&family=Mali:wght@500;600;700&family=Charm:wght@700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--pri:#4f46e5;--pri2:#7c3aed;--ok:#16a34a;--bad:#dc2626;--warn:#f59e0b;--bg:#f4f6fb;--tx:#1e293b;--mut:#64748b;--bd:#e2e8f0;--r:16px}
+body{margin:0;font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--tx);font-size:17px;line-height:1.75}
+h1,h2,h3,h4,.brand,.btn,.qnum{font-family:'Mitr','Sarabun',sans-serif;font-weight:500;line-height:1.4}
+h2{margin:.2em 0}h3{margin:0 0 .6em;color:#312e81}
+code{background:#eef2ff;color:var(--pri);padding:2px 8px;border-radius:6px;font-weight:700}
+.ov{text-decoration:overline}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:12px;padding:10px 20px;font-size:16px;cursor:pointer;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;transition:.2s;margin:4px}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(79,70,229,.3)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;color:var(--pri);border:1.5px solid var(--pri)}
+.btn.ok{background:linear-gradient(135deg,#16a34a,#15803d)}
+.btn.bad{background:linear-gradient(135deg,#ef4444,#b91c1c)}
+.btn.gold{background:linear-gradient(135deg,#f59e0b,#b45309)}
+.btn.sm{padding:5px 12px;font-size:14px;border-radius:9px}
+.wrap{max-width:1020px;margin:0 auto;padding:24px 16px 70px}
+.card{background:#fff;border-radius:var(--r);box-shadow:0 4px 20px rgba(15,23,42,.06);padding:24px;margin-bottom:18px}
+.center{text-align:center}.mut{color:var(--mut)}
+input,select{font-family:inherit;font-size:16px;padding:11px 14px;border:1.5px solid var(--bd);border-radius:10px;width:100%;outline:none;transition:.2s;color:var(--tx);background:#fff;-webkit-text-fill-color:var(--tx);color-scheme:light}
+input:focus{border-color:var(--pri);box-shadow:0 0 0 3px rgba(79,70,229,.15)}
+input::placeholder{color:var(--mut);opacity:1;-webkit-text-fill-color:var(--mut)}
+input:-webkit-autofill{-webkit-text-fill-color:var(--tx);caret-color:var(--tx)}
+label{font-weight:600;font-size:15px;display:block;margin:12px 0 4px}
+/* topbar */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:16px;padding:10px 20px;flex-wrap:wrap}
+.brand{cursor:pointer;font-size:18px;color:var(--pri)}
+.tb-prog{flex:1;display:flex;align-items:center;gap:8px;min-width:140px}
+.pbar{flex:1;height:10px;background:#e0e7ff;border-radius:99px;overflow:hidden}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#4f46e5);border-radius:99px;transition:width .6s}
+.tb-user{font-weight:600;font-size:15px}
+/* login */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#0ea5e9 100%)}
+.login-card{width:100%;max-width:440px;text-align:center}
+.login-card .logo{font-size:60px;line-height:1}
+.login-card .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left}
+.login-card form>label{text-align:left}
+.linkbtn{background:none;border:0;color:var(--mut);cursor:pointer;font-family:inherit;font-size:14px;margin-top:10px;text-decoration:underline}
+/* home */
+.hero{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border-radius:20px;padding:28px;margin-bottom:22px}
+.hero p{margin:.3em 0;opacity:.95}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.scard{background:#fff;border-radius:var(--r);padding:20px;box-shadow:0 4px 18px rgba(15,23,42,.06);border-top:5px solid var(--c);display:flex;flex-direction:column;gap:6px;transition:.2s}
+.scard:hover{transform:translateY(-3px)}
+.scard .ic{font-size:36px}.scard p{font-size:14.5px;color:var(--mut);margin:0;flex:1}
+.chip{display:inline-block;font-size:13px;padding:2px 10px;border-radius:99px;font-weight:600}
+.chip.lock{background:#f1f5f9;color:#64748b}.chip.go{background:#e0e7ff;color:#4338ca}.chip.pass{background:#dcfce7;color:#15803d}
+.scard.locked{opacity:.6}
+/* lesson */
+.lesson-hero{background:var(--c);color:#fff;border-radius:20px;padding:24px;display:flex;gap:18px;align-items:center;margin-bottom:18px}
+.lesson-hero .lh-ic{font-size:54px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{border:1.5px solid var(--bd);background:#fff;border-radius:99px;padding:5px 14px;font-family:inherit;cursor:pointer;font-size:14px}
+.tabs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.tabs button:disabled{opacity:.4;cursor:not-allowed}
+.def{background:#eef2ff;border-left:5px solid var(--pri);padding:14px 18px;border-radius:10px;margin:10px 0}
+.ex{background:#f0fdf4;border-left:5px solid #22c55e;padding:12px 18px;border-radius:10px;margin:10px 0}
+.tip{background:#fffbeb;border-left:5px solid #f59e0b;padding:12px 18px;border-radius:10px;margin:10px 0}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.step{background:#f8fafc;border:1.5px solid var(--bd);border-radius:14px;padding:14px;position:relative}
+.step .n{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Mitr;margin-bottom:6px}
+.step p{font-size:14.5px;margin:4px 0 0;color:#475569}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.box{border:1.5px solid var(--bd);border-radius:14px;padding:16px;background:#fff}
+.box h4{margin:0 0 6px}
+.terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.term{border-radius:14px;padding:16px;background:#f8fafc;border:1.5px solid var(--bd)}
+.term h4{margin:0 0 4px;color:#1d4ed8}
+.term small{color:#475569}
+table.tb{width:100%;border-collapse:collapse;margin:10px 0;font-size:15.5px}
+.tb th,.tb td{border:1px solid var(--bd);padding:9px 12px;text-align:left;vertical-align:top}
+.tb th{background:#eef2ff;font-family:Mitr;font-weight:500}
+.tb td.sym{font-size:20px;text-align:center;font-weight:700;color:#4338ca}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:center;margin:12px 0}
+.flow span{background:#eef2ff;padding:8px 14px;border-radius:12px;font-weight:600}
+.flow b{color:var(--pri);font-size:20px}
+.tree ul{list-style:none;padding-left:20px;margin:4px 0;border-left:2px dashed #c7d2fe}
+.tree>ul{border:0;padding:0}
+.tree li{margin:6px 0;position:relative}
+.tree .nd{display:inline-block;padding:4px 12px;border-radius:10px;background:#eef2ff;font-weight:600}
+.tree .nd.l2{background:#dcfce7}.tree .nd.l3{background:#fef3c7}
+.summary-box{background:linear-gradient(135deg,#ecfeff,#eef2ff);border:2px solid #c7d2fe;border-radius:18px;padding:20px}
+.summary-box ul{margin:6px 0;padding-left:22px}
+/* activities */
+.act{border:2px dashed #a5b4fc;border-radius:18px;padding:18px;background:#fafaff;margin:16px 0}
+.act-h{font-family:Mitr;color:#4338ca;font-size:18px;margin-bottom:4px}
+.act-d{color:var(--mut);font-size:15px;margin-bottom:10px}
+.fb{min-height:28px;font-weight:600;margin-top:8px}
+.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.pbtn{border:1.5px solid #c7d2fe;background:#fff;border-radius:12px;padding:8px 14px;font-family:inherit;font-size:15px;cursor:pointer;transition:.15s}
+.pbtn:hover:not(:disabled){background:#eef2ff}
+.pbtn.ok{background:#dcfce7;border-color:#22c55e;color:#166534}
+.pbtn.bad{background:#fee2e2;border-color:#ef4444}
+.pbtn.sel{background:#4f46e5;color:#fff;border-color:#4f46e5}
+.pbtn:disabled{cursor:default}
+.ordans{display:flex;flex-direction:column;gap:6px;min-height:20px}
+.ordans div{background:#dcfce7;border-radius:10px;padding:6px 12px;animation:pop .3s}
+.ordans span{display:inline-block;width:26px;height:26px;border-radius:50%;background:#16a34a;color:#fff;text-align:center;line-height:26px;margin-right:8px;font-weight:700}
+.match{display:grid;grid-template-columns:1fr 1.6fr;gap:12px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .pbtn{text-align:left}
+.cls-row{background:#fff;border:1.5px solid var(--bd);border-radius:12px;padding:10px 14px;margin:8px 0}
+.cls-row.ok{border-color:#22c55e;background:#f0fdf4}.cls-row.bad{border-color:#ef4444;background:#fef2f2}
+.cls-t{font-weight:600;margin-bottom:6px}
+.cls-btns{display:flex;flex-wrap:wrap;gap:6px}
+.cls-btns .pbtn{padding:4px 12px;font-size:14px}
+.cls-e{font-size:14.5px;color:#475569;margin-top:4px}
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:900px;height:190px;cursor:pointer}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.flip.flipped .flip-in{transform:rotateY(180deg)}
+.flip-f,.flip-b{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.flip-f{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff}
+.flip-f .ic{font-size:40px}.flip-f small{opacity:.8}
+.flip-b{background:#fff;border:2px solid #a5b4fc;transform:rotateY(180deg);font-size:14.5px}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.shake{animation:shake .35s}
+/* quiz */
+.quiz-head{display:flex;justify-content:space-between;align-items:center;gap:12px;background:linear-gradient(135deg,#1e1b4b,#4338ca);color:#fff}
+.quiz-head code{background:rgba(255,255,255,.2);color:#fff}
+.qcount{font-family:Mitr;font-size:26px;background:rgba(255,255,255,.15);padding:8px 16px;border-radius:14px;white-space:nowrap}
+.qnum{color:var(--pri);font-size:15px}
+.qtext{font-size:18px;font-weight:600;margin:4px 0 12px}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;border:1.5px solid var(--bd);background:#fff;border-radius:12px;padding:10px 14px;font-family:inherit;font-size:16px;cursor:pointer;transition:.15s}
+.opt:hover{border-color:#a5b4fc;background:#f8faff}
+.opt .ol{flex:0 0 28px;height:28px;border-radius:50%;background:#eef2ff;color:#4338ca;display:flex;align-items:center;justify-content:center;font-weight:700}
+.opt.sel{border-color:var(--pri);background:#eef2ff}
+.opt.sel .ol{background:var(--pri);color:#fff}
+.opt.right{border-color:#22c55e;background:#dcfce7}
+.opt.wrong{border-color:#ef4444;background:#fee2e2}
+.exp{margin-top:10px;background:#f8fafc;border-radius:10px;padding:10px 14px;font-size:15px}
+.res-top{text-align:center}
+.ring{width:150px;height:150px;border-radius:50%;margin:10px auto;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:Mitr;color:#fff}
+.ring b{font-size:42px;line-height:1}
+.ring.pass{background:radial-gradient(circle,#22c55e,#15803d)}
+.ring.fail{background:radial-gradient(circle,#f87171,#b91c1c)}
+/* summary card */
+.sumcard{max-width:900px;margin:0 auto;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 10px 40px rgba(79,70,229,.18)}
+.sum-h{background:linear-gradient(135deg,#4f46e5,#7c3aed,#0ea5e9);color:#fff;padding:26px;text-align:center}
+.sum-b{padding:24px}
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sum-item{border-radius:16px;padding:16px;border:2px solid var(--c);background:#fff}
+.sum-item h4{margin:0 0 6px;color:var(--c)}
+.sum-item ul{margin:0;padding-left:20px;font-size:15px}
+.scorebar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0}
+.scorebar div{background:#f1f5f9;border-radius:12px;padding:8px 14px;text-align:center;font-size:14px}
+.scorebar b{display:block;font-family:Mitr;font-size:20px;color:var(--pri)}
+/* certificate */
+.cert-scroll{overflow-x:auto;padding-bottom:10px}
+.cert{width:1000px;height:707px;margin:0 auto;background:#fffdf6;position:relative;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.15);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cert-in{height:100%;border:3px solid #b8860b;outline:1.5px solid #b8860b;outline-offset:-12px;padding:34px 60px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;background:radial-gradient(circle at center,#fffef9 0%,#fdf6e3 100%)}
+.cert .corner{position:absolute;width:70px;height:70px;border:4px solid #d4a017}
+.cert .c1{top:10px;left:10px;border-right:0;border-bottom:0}.cert .c2{top:10px;right:10px;border-left:0;border-bottom:0}
+.cert .c3{bottom:10px;left:10px;border-right:0;border-top:0}.cert .c4{bottom:10px;right:10px;border-left:0;border-top:0}
+.cert-title{font-family:Mitr;font-size:56px;color:#a16207;letter-spacing:4px;margin:0;line-height:1.2}
+.cert-sub{font-size:20px;color:#334155}
+.cert-name{font-family:Mitr;font-size:40px;color:#1e3a8a;border-bottom:2px solid #d4a017;padding:0 40px 4px;margin:4px 0}
+.cert-body{font-size:19px;color:#334155;line-height:1.8}
+.cert-sign{display:flex;justify-content:space-between;align-items:flex-end;width:100%}
+.seal{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#fbbf24,#b45309);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Mitr;font-size:14px;box-shadow:0 0 0 5px #fde68a;line-height:1.3}
+.seal b{font-size:26px}
+.sig{text-align:center;min-width:280px}
+.sig .sg{font-family:'Charm',cursive;font-size:38px;color:#1e3a8a;line-height:1;height:46px}
+.sig .ln{border-top:1.5px dotted #475569;margin-top:4px;padding-top:4px;font-size:17px}
+.certno{font-size:13px;color:#64748b;text-align:left;min-width:200px}
+/* admin */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.stat{background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 18px rgba(15,23,42,.05)}
+.stat b{display:block;font-family:Mitr;font-size:30px;color:var(--pri)}
+.tbl-wrap{overflow-x:auto}
+table.adm{width:100%;border-collapse:collapse;font-size:14.5px;min-width:900px}
+.adm th{background:#1e1b4b;color:#fff;font-family:Mitr;font-weight:400;padding:9px;position:sticky;top:0}
+.adm td{border-bottom:1px solid var(--bd);padding:8px;text-align:center}
+.adm td.l{text-align:left}
+.adm tr:hover td{background:#f8faff}
+.okc{color:#15803d;font-weight:700}.noc{color:#94a3b8}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.toolbar input{max-width:280px}
+.bank-q{border-bottom:1px solid var(--bd);padding:8px 0;font-size:15px}
+.bank-q .a{color:#15803d;font-weight:600}
+/* modal / toast */
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;animation:pop .2s}
+.modal{max-width:560px;width:100%;max-height:88vh;overflow:auto}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:12px 22px;border-radius:12px;z-index:200;animation:pop .25s;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.conf{position:fixed;top:-20px;width:10px;height:14px;z-index:300;animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+@media(max-width:700px){.two,.sum-grid,.match{grid-template-columns:1fr}.lesson-hero{flex-direction:column;text-align:center}.quiz-head{flex-direction:column;text-align:center}body{font-size:16px}}
+@media print{
+  @page{size:A4 landscape;margin:6mm}
+  body{background:#fff}
+  .topbar,.no-print{display:none!important}
+  .wrap{padding:0;max-width:none}
+  .cert{box-shadow:none;margin:0 auto}
+  .cert-scroll{overflow:visible}
+  .sumcard{box-shadow:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+<style id="themeStyles">
+/* ================= ธีม: นีโอ-บรูทัล อย่างเดียว (ไฟล์นี้ไม่มีตัวเลือกสลับธีม) ================= */
+/* ตัวเลือกธีมในหน้าตั้งค่าแอดมิน */
+.theme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px;margin-top:10px}
+.theme-card{background:#fff;border:2px solid var(--bd);border-radius:14px;padding:10px;cursor:pointer;font-family:inherit;text-align:left;display:flex;flex-direction:column;gap:3px;color:var(--tx);transition:.15s}
+.theme-card:hover{transform:translateY(-2px)}
+.theme-card .sw{height:38px;border-radius:9px;display:block}
+.theme-card small{color:var(--mut);font-size:12px;line-height:1.4}
+.theme-card.on{border-color:var(--pri);box-shadow:0 0 0 3px rgba(99,102,241,.20)}
+.theme-card.on b::after{content:' ✔';color:var(--ok)}
+.login-theme .theme-card{align-items:center;text-align:center;padding:8px 6px;gap:2px}
+.login-theme .theme-card .sw{height:26px;width:100%}
+.login-theme .theme-card b{font-size:13px}
+.login-theme .theme-card.on b::after{content:''}
+
+/* ---------- ธีม: นีโอ-บรูทัล (Neo-Brutalism) ---------- */
+body[data-theme="brutal"]{--pri:#111111;--pri2:#e8590c;--bg:#fff6e9;--tx:#111111;--mut:#555555;--bd:#111111;--r:6px;background:#fff6e9;background-image:none;font-family:'Sarabun',sans-serif}
+body[data-theme="brutal"] h1,body[data-theme="brutal"] h2,body[data-theme="brutal"] h3,body[data-theme="brutal"] h4,body[data-theme="brutal"] .brand{font-family:'Mitr','Sarabun',sans-serif;font-weight:600}
+body[data-theme="brutal"] h3{color:#111}
+body[data-theme="brutal"] .card{background:#fff;border:3px solid #111;border-radius:6px;box-shadow:7px 7px 0 #111}
+body[data-theme="brutal"] .btn{background:#ffd02e;color:#111;border:3px solid #111;border-bottom:3px solid #111;border-radius:6px;box-shadow:4px 4px 0 #111;font-weight:700}
+body[data-theme="brutal"] .btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 #111}
+body[data-theme="brutal"] .btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 #111}
+body[data-theme="brutal"] .btn.ghost{background:#fff;color:#111;border:3px solid #111;box-shadow:4px 4px 0 #111}
+body[data-theme="brutal"] .btn.ok{background:#51cf66;border-bottom-color:#111}
+body[data-theme="brutal"] .btn.bad{background:#ff6b6b;border-bottom-color:#111;color:#111}
+body[data-theme="brutal"] .btn.gold{background:#ffa94d;border-bottom-color:#111;color:#111}
+body[data-theme="brutal"] .topbar{background:#ffd02e;border-bottom:3px solid #111;box-shadow:none}
+body[data-theme="brutal"] .brand{color:#111}
+body[data-theme="brutal"] .pbar{background:#fff;border:2.5px solid #111;height:14px;border-radius:0}
+body[data-theme="brutal"] .pbar i{background:#ff6b6b;border-radius:0}
+body[data-theme="brutal"] .login-wrap{background-color:#ffec99;background-image:radial-gradient(rgba(0,0,0,.16) 1.6px,transparent 1.7px);background-size:22px 22px}
+body[data-theme="brutal"] .hero{background:#ff6b6b;border:3px solid #111;border-radius:6px;box-shadow:7px 7px 0 #111;color:#fff}
+body[data-theme="brutal"] .scard{background:#fff;border:3px solid #111;border-top:8px solid var(--c);border-radius:6px;box-shadow:6px 6px 0 #111}
+body[data-theme="brutal"] .scard:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 #111}
+body[data-theme="brutal"] .chip{border:2.5px solid #111;border-radius:4px}
+body[data-theme="brutal"] .chip.go{background:#a8e6ff;color:#111}
+body[data-theme="brutal"] .chip.pass{background:#b8f1cc;color:#111}
+body[data-theme="brutal"] .chip.lock{background:#eeeeee;color:#555}
+body[data-theme="brutal"] .lesson-hero{border:3px solid #111;box-shadow:6px 6px 0 #111;border-radius:8px}
+body[data-theme="brutal"] .tabs button{border:3px solid #111;background:#fff;color:#111;border-radius:6px;font-weight:700}
+body[data-theme="brutal"] .tabs button.on{background:#111;color:#ffd02e;border-color:#111}
+body[data-theme="brutal"] input,body[data-theme="brutal"] select{border:3px solid #111;border-radius:6px;background:#fff;color:#111;-webkit-text-fill-color:#111;caret-color:#111;color-scheme:light}
+body[data-theme="brutal"] input:focus{border-color:#111;box-shadow:4px 4px 0 #111}
+body[data-theme="brutal"] input::placeholder{color:#777;opacity:1;-webkit-text-fill-color:#777}
+body[data-theme="brutal"] label{color:#111}
+body[data-theme="brutal"] code{background:#ffd02e;color:#111;border:2px solid #111;border-radius:4px}
+body[data-theme="brutal"] .def{background:#a8e6ff;border:3px solid #111;border-radius:6px}
+body[data-theme="brutal"] .ex{background:#d3f9d8;border:3px solid #111;border-radius:6px}
+body[data-theme="brutal"] .tip{background:#fff3bf;border:3px solid #111;border-radius:6px}
+body[data-theme="brutal"] .step{background:#fff;border:3px solid #111;border-radius:6px;box-shadow:4px 4px 0 #111}
+body[data-theme="brutal"] .step .n{background:#ff6b6b;border:2.5px solid #111;color:#fff;border-radius:6px}
+body[data-theme="brutal"] .step p{color:#444}
+body[data-theme="brutal"] .box{border:3px solid #111;border-radius:6px;background:#fff}
+body[data-theme="brutal"] .term{background:#fff;border:3px solid #111;border-radius:6px}
+body[data-theme="brutal"] .term h4{color:#1971c2}
+body[data-theme="brutal"] .term small{color:#555}
+body[data-theme="brutal"] .tb th{background:#ffd02e;color:#111}
+body[data-theme="brutal"] .flow span{background:#fff3bf;border:2.5px solid #111}
+body[data-theme="brutal"] .flow b{color:#e8590c}
+body[data-theme="brutal"] .tree ul{border-left:3px solid #111}
+body[data-theme="brutal"] .tree .nd{background:#a8e6ff;border:2.5px solid #111}
+body[data-theme="brutal"] .tree .nd.l2{background:#b8f1cc}body[data-theme="brutal"] .tree .nd.l3{background:#fff3bf}
+body[data-theme="brutal"] .summary-box{background:#fff;border:3px solid #111;border-radius:6px;box-shadow:6px 6px 0 #111}
+body[data-theme="brutal"] .act{border:3px dashed #111;background:#fff;border-radius:6px}
+body[data-theme="brutal"] .act-h{color:#e8590c}
+body[data-theme="brutal"] .pbtn{border:3px solid #111;background:#fff;border-radius:6px;font-weight:700;box-shadow:3px 3px 0 #111;color:#111}
+body[data-theme="brutal"] .pbtn:hover:not(:disabled){background:#fff3bf}
+body[data-theme="brutal"] .pbtn.sel{background:#4dabf7;color:#111;border-color:#111}
+body[data-theme="brutal"] .pbtn.ok{background:#b8f1cc;border-color:#111;color:#111}
+body[data-theme="brutal"] .pbtn.bad{background:#ffc9c9;border-color:#111}
+body[data-theme="brutal"] .ordans div{background:#b8f1cc;border:2.5px solid #111;border-radius:6px}
+body[data-theme="brutal"] .ordans span{background:#111}
+body[data-theme="brutal"] .cls-row{background:#fff;border:3px solid #111;border-radius:6px}
+body[data-theme="brutal"] .cls-row.ok{background:#d3f9d8;border-color:#111}
+body[data-theme="brutal"] .cls-row.bad{background:#ffe3e3;border-color:#111}
+body[data-theme="brutal"] .cls-e{color:#444}
+body[data-theme="brutal"] .flip-f{background:#ffd02e;color:#111;border:3px solid #111;border-radius:6px}
+body[data-theme="brutal"] .flip-b{background:#fff;border:3px solid #111;border-radius:6px}
+body[data-theme="brutal"] .quiz-head{background:#111;color:#ffd02e;border:3px solid #111;border-radius:6px;box-shadow:6px 6px 0 #ffd02e}
+body[data-theme="brutal"] .quiz-head code{background:#ffd02e;color:#111;border-color:#111}
+body[data-theme="brutal"] .qcount{background:#ff6b6b;color:#fff}
+body[data-theme="brutal"] .qnum{color:#e8590c}
+body[data-theme="brutal"] .opt{border:3px solid #111;border-radius:6px;background:#fff;box-shadow:3px 3px 0 #111;color:#111}
+body[data-theme="brutal"] .opt:hover{border-color:#111;background:#fff3bf}
+body[data-theme="brutal"] .opt .ol{background:#ffd02e;color:#111;border:2px solid #111;border-radius:4px}
+body[data-theme="brutal"] .opt.sel{border-color:#111;background:#a8e6ff;box-shadow:3px 3px 0 #111}
+body[data-theme="brutal"] .opt.sel .ol{background:#111;color:#ffd02e}
+body[data-theme="brutal"] .opt.right{background:#b8f1cc;border-color:#111}
+body[data-theme="brutal"] .opt.wrong{background:#ffc9c9;border-color:#111}
+body[data-theme="brutal"] .exp{background:#fff3bf;border:2.5px solid #111;border-radius:6px}
+body[data-theme="brutal"] .ring{border:4px solid #111}
+body[data-theme="brutal"] .ring.pass{background:#37b24d}
+body[data-theme="brutal"] .ring.fail{background:#f03e3e}
+body[data-theme="brutal"] .sumcard{border:3px solid #111;border-radius:8px;box-shadow:8px 8px 0 #111}
+body[data-theme="brutal"] .sum-h{background:#4dabf7;border-bottom:3px solid #111;color:#fff}
+body[data-theme="brutal"] .sum-item{border:3px solid var(--c);border-radius:6px;background:#fff}
+body[data-theme="brutal"] .scorebar div{background:#fff3bf;border:2.5px solid #111;border-radius:6px}
+body[data-theme="brutal"] .scorebar b{color:#e8590c}
+body[data-theme="brutal"] .stat{background:#fff;border:3px solid #111;border-radius:6px;box-shadow:5px 5px 0 #111}
+body[data-theme="brutal"] .stat b{color:#e8590c}
+body[data-theme="brutal"] .adm th{background:#111;color:#ffd02e}
+body[data-theme="brutal"] .adm tr:hover td{background:#fff3bf}
+body[data-theme="brutal"] .bank-q{border-color:#111}
+body[data-theme="brutal"] .toast{background:#111;color:#ffd02e;border:3px solid #ffd02e;border-radius:8px}
+body[data-theme="brutal"] .modal-bg{background:rgba(0,0,0,.55)}
+body[data-theme="brutal"] .theme-card{background:#fff;color:#111}
+body[data-theme="brutal"] .theme-card.on{border-color:#111;box-shadow:0 0 0 3px #ffd02e,4px 4px 0 #111}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ================== ตั้งค่าพื้นฐานและข้อมูลหลัก ================== */
+const DBKEY='circle3_db_v1';
+const ADMIN_USER='admin', ADMIN_PASS='1234';
+
+function loadDB(){
+  try{
+    const d=JSON.parse(localStorage.getItem(DBKEY));
+    if(d&&d.students){
+      d.settings=Object.assign({
+        passPct:60, 
+        finalPassPct:70,
+        subjectName:'คณิตศาสตร์เพิ่มเติม',
+        subjectCode:'ค23202',
+        gradeLevel:'ชั้นมัธยมศึกษาปีที่ 3',
+        unitName:'บทที่ 1 วงกลม',
+        teacherName:'จิรพันธ์ บัวแก้ว',
+        teacherPos:'ครูผู้สอน'
+      }, d.settings||{});
+      return d;
+    }
+  }catch(e){}
+  return {
+    students:{},
+    settings:{
+      passPct:60,
+      finalPassPct:70,
+      subjectName:'คณิตศาสตร์เพิ่มเติม',
+      subjectCode:'ค23202',
+      gradeLevel:'ชั้นมัธยมศึกษาปีที่ 3',
+      unitName:'บทที่ 1 วงกลม',
+      teacherName:'จิรพันธ์ บัวแก้ว',
+      teacherPos:'ครูผู้สอน'
+    }
+  };
+}
+
+let DB=loadDB();
+DB.settings.theme='brutal';
+document.body.dataset.theme='brutal';localStorage.setItem('circle3_theme','brutal');
+function saveDB(){localStorage.setItem(DBKEY,JSON.stringify(DB));}
+let ME=sessionStorage.getItem('circle3_me');
+let THEME_PICKED='brutal';
+function currentTheme(){return 'brutal';}
+function loginSetTheme(t){THEME_PICKED='brutal';localStorage.setItem('circle3_theme','brutal');document.body.dataset.theme='brutal';}
+let QUIZ=null;
+const app=document.getElementById('app');
+function me(){return DB.students[ME];}
+function view(html){document.body.dataset.theme=currentTheme();app.innerHTML=html;window.scrollTo(0,0);document.getElementById('pageTitle').textContent=`${DB.settings.unitName} - ${DB.settings.subjectCode} ${DB.settings.subjectName} ${DB.settings.gradeLevel}`;}
+
+/* ================== โครงสร้างบทเรียน ================== */
+const SECTIONS=[
+ {key:'s1',no:1,title:'ส่วนต่าง ๆ ของวงกลม',icon:'⭕',color:'#0ea5e9',desc:'จุดศูนย์กลาง รัศมี เส้นผ่านศูนย์กลาง คอร์ด เส้นตัด เส้นสัมผัส ส่วนโค้ง เซกเตอร์ เซกเมนต์ และมุมในวงกลม'},
+ {key:'s2',no:2,title:'มุมในครึ่งวงกลมและมุมที่จุดศูนย์กลาง',icon:'📐',color:'#f43f5e',desc:'ทฤษฎีบทที่ 1 มุมในครึ่งวงกลมเป็นมุมฉาก และทฤษฎีบทที่ 2 มุมที่จุดศูนย์กลางเป็น 2 เท่าของมุมในส่วนโค้ง'},
+ {key:'s3',no:3,title:'ส่วนโค้งเดียวกันและสี่เหลี่ยมแนบในวงกลม',icon:'🔷',color:'#8b5cf6',desc:'ทฤษฎีบทที่ 3–8 มุมบนส่วนโค้งเดียวกัน ส่วนโค้งกับมุม และมุมตรงข้ามของสี่เหลี่ยมแนบในวงกลม'},
+ {key:'s4',no:4,title:'คอร์ดและเส้นสัมผัสวงกลม',icon:'🏹',color:'#10b981',desc:'สมบัติของคอร์ด เส้นสัมผัสตั้งฉากกับรัศมี เส้นสัมผัสสองเส้นจากจุดภายนอก และมุมระหว่างคอร์ดกับเส้นสัมผัส'}
+];
+const SUMMARY={
+ s1:['จุดศูนย์กลาง คือจุดคงที่ที่ทุกจุดบนวงกลมอยู่ห่างเท่ากัน ระยะนั้นคือ รัศมี — รัศมีทุกเส้นยาวเท่ากัน และเส้นผ่านศูนย์กลางยาวเป็น 2 เท่าของรัศมี ผ่านจุดศูนย์กลาง เป็นคอร์ดที่ยาวที่สุด','คอร์ด = จุดปลายทั้งสองอยู่บนวงกลม / เส้นตัดวงกลม = ตัดวงกลม 2 จุด / เส้นสัมผัส = ตัดวงกลมเพียงจุดเดียว (จุดสัมผัส)','คอร์ดแบ่งวงกลมเป็นส่วนโค้งน้อยและส่วนโค้งใหญ่ เส้นผ่านศูนย์กลางแบ่งเป็นครึ่งวงกลม 2 ส่วน / เซกเตอร์ = รัศมี 2 เส้น + ส่วนโค้ง / เซกเมนต์ = คอร์ด + ส่วนโค้ง','มุม 3 ชนิด: มุมที่จุดศูนย์กลาง (ยอดมุมที่ศูนย์กลาง) · มุมในส่วนโค้ง (ยอดมุมบนวงกลม) · มุมในครึ่งวงกลม (ยอดมุมบนวงกลม แขนผ่านปลายเส้นผ่านศูนย์กลาง)'],
+ s2:['ทฤษฎีบทที่ 1: มุมในครึ่งวงกลมมีขนาด 90° (หนึ่งมุมฉาก) เสมอ','ทฤษฎีบทที่ 2: มุมที่จุดศูนย์กลางมีขนาดเป็น 2 เท่าของมุมในส่วนโค้งของวงกลมที่รองรับด้วยส่วนโค้งเดียวกัน — กลับกัน มุมในส่วนโค้งเป็นครึ่งหนึ่งของมุมที่จุดศูนย์กลาง','มุมกลับที่จุดศูนย์กลางก็ใช้หลักเดียวกัน เช่น มุมกลับ 240° → มุมในส่วนโค้ง 120°','สามเหลี่ยมที่แนบในครึ่งวงกลมเป็นสามเหลี่ยมมุมฉาก มุมที่เหลืออีกสองมุมรวมกันได้ 90°'],
+ s3:['ทฤษฎีบทที่ 3: มุมในส่วนโค้งของวงกลมที่รองรับด้วยส่วนโค้งเดียวกัน มีขนาดเท่ากัน','ทฤษฎีบทที่ 4–7: มุม (ที่จุดศูนย์กลาง/ในส่วนโค้ง) เท่ากัน ↔ ส่วนโค้งที่รองรับยาวเท่ากัน และกลับกัน','ทฤษฎีบทที่ 8: รูปสี่เหลี่ยมแนบในวงกลม มุมตรงข้ามรวมกันเท่ากับ 180° เสมอ (เช่น 2x + x = 180 → x = 60°)'],
+ s4:['เส้นสัมผัสวงกลมจะตั้งฉากกับรัศมีของวงกลมที่จุดสัมผัส — สามเหลี่ยมที่เกิดจากจุดศูนย์กลาง จุดสัมผัส และจุดภายนอก จึงเป็นสามเหลี่ยมมุมฉาก','ส่วนของเส้นตรง 2 เส้นที่ลากจากจุดภายนอกจุดเดียวกันมาสัมผัสวงกลมเดียวกัน จะยาวเท่ากัน และมุมระหว่างเส้นสัมผัสทั้งสอง + มุมที่จุดศูนย์กลางระหว่างรัศมีทั้งสอง = 180°','มุมที่เกิดจากคอร์ดและเส้นสัมผัสที่จุดสัมผัส มีขนาดเท่ากับมุมในส่วนโค้งของวงกลมที่อยู่ฝั่งตรงข้ามกับคอร์ดนั้น','คอร์ดคือส่วนของเส้นตรงที่มีจุดปลายทั้งสองอยู่บนวงกลม เส้นผ่านศูนย์กลางเป็นคอร์ดที่ยาวที่สุด']
+};
+
+/* ================== คลังข้อสอบ ================== */
+const BANK={
+s1:[
+ {q:'จุดคงที่ซึ่งทุกจุดบนวงกลมอยู่ห่างจากจุดนี้เป็นระยะเท่ากัน เรียกว่าอะไร',c:['จุดศูนย์กลาง','จุดสัมผัส','จุดยอดมุม','จุดกึ่งกลางคอร์ด'],e:'จุดคงที่นั้นคือจุดศูนย์กลางของวงกลม และระยะที่เท่ากันคือรัศมี'},
+ {q:'ส่วนของเส้นตรงที่มีจุดปลายด้านหนึ่งเป็นจุดศูนย์กลาง และอีกด้านหนึ่งเป็นจุดบนวงกลม คือข้อใด',c:['รัศมี','คอร์ด','เส้นตัดวงกลม','เส้นสัมผัส'],e:'รัศมีเชื่อมจุดศูนย์กลางกับจุดบนวงกลม'},
+ {q:'คอร์ดที่ยาวที่สุดของวงกลมคือข้อใด',c:['เส้นผ่านศูนย์กลาง','รัศมี','เส้นสัมผัส','ส่วนโค้งใหญ่'],e:'เส้นผ่านศูนย์กลางเป็นคอร์ดที่ผ่านจุดศูนย์กลาง จึงยาวที่สุด'},
+ {q:'เส้นตรงที่ตัดวงกลมเพียงจุดเดียวเท่านั้น เรียกว่าอะไร',c:['เส้นสัมผัสวงกลม','เส้นตัดวงกลม','คอร์ด','เส้นผ่านศูนย์กลาง'],e:'เส้นสัมผัสตัดวงกลมเพียงจุดเดียว เรียกจุดนั้นว่าจุดสัมผัส'},
+ {q:'เส้นตรงที่ตัดวงกลมสองจุด เรียกว่าอะไร',c:['เส้นตัดวงกลม','เส้นสัมผัสวงกลม','รัศมี','เซกเตอร์'],e:'เส้นตัดวงกลมตัดวงกลมที่สองจุด'},
+ {q:'ส่วนของเส้นตรงที่มีจุดปลายทั้งสองอยู่บนวงกลมเดียวกัน คือข้อใด',c:['คอร์ด','รัศมี','เส้นสัมผัส','เส้นรอบวง'],e:'นิยามของคอร์ด: จุดปลายทั้งสองอยู่บนวงกลม'},
+ {q:'เส้นผ่านศูนย์กลางยาวเป็นกี่เท่าของรัศมี',c:['2 เท่า','1.5 เท่า','3 เท่า','เท่ากัน'],e:'เส้นผ่านศูนย์กลาง = รัศมี 2 เส้นต่อกัน จึงยาวเป็น 2 เท่า'},
+ {q:'ส่วนโค้งที่มีขนาดเป็นครึ่งหนึ่งของวงกลม เรียกว่าอะไร',c:['ครึ่งวงกลม','ส่วนโค้งน้อย','ส่วนโค้งใหญ่','เซกเมนต์'],e:'เส้นผ่านศูนย์กลางแบ่งวงกลมออกเป็นสองส่วนเท่า ๆ กัน แต่ละส่วนคือครึ่งวงกลม'},
+ {q:'มุมที่มีจุดยอดมุมเป็นจุดศูนย์กลางของวงกลม คือมุมใด',c:['มุมที่จุดศูนย์กลาง','มุมในส่วนโค้งของวงกลม','มุมในครึ่งวงกลม','มุมประชิด'],e:'จุดยอดมุมอยู่ที่จุดศูนย์กลาง แขนทั้งสองเป็นรัศมี'},
+ {q:'มุมที่มีจุดยอดมุมอยู่บนวงกลม และแขนทั้งสองของมุมตัดวงกลม คือมุมใด',c:['มุมในส่วนโค้งของวงกลม','มุมที่จุดศูนย์กลาง','มุมฉาก','มุมกลับ'],e:'นิยามของมุมในส่วนโค้งของวงกลม'},
+ {q:'คอร์ดที่ไม่ใช่เส้นผ่านศูนย์กลาง จะแบ่งวงกลมออกเป็นส่วนโค้งสองส่วนเรียกว่าอะไร',c:['ส่วนโค้งน้อยและส่วนโค้งใหญ่','ครึ่งวงกลมสองส่วน','เซกเตอร์และเซกเมนต์','ส่วนโค้งในและส่วนโค้งนอก'],e:'ส่วนที่สั้นกว่าเรียกส่วนโค้งน้อย ส่วนที่ยาวกว่าเรียกส่วนโค้งใหญ่'},
+ {q:'บริเวณที่ล้อมรอบด้วยรัศมีสองเส้นและส่วนโค้ง เรียกว่าอะไร',c:['เซกเตอร์ (sector)','เซกเมนต์ (segment)','คอร์ด','ครึ่งวงกลม'],e:'เซกเตอร์มีลักษณะคล้ายชิ้นพิซซ่า ขอบตรงเป็นรัศมี 2 เส้น'},
+ {q:'บริเวณที่ล้อมรอบด้วยคอร์ดและส่วนโค้ง เรียกว่าอะไร',c:['เซกเมนต์ (segment)','เซกเตอร์ (sector)','เส้นรอบวง','พื้นที่วงกลม'],e:'เซกเมนต์ถูกกั้นด้วยคอร์ดเส้นหนึ่งกับส่วนโค้ง'},
+ {q:'วงกลมสองวงจะเท่ากันทุกประการเมื่อใด',c:['รัศมียาวเท่ากัน','เส้นผ่านศูนย์กลางสั้นกว่า','มีจุดศูนย์กลางจุดเดียวกัน','มีคอร์ดยาวเท่ากัน'],e:'รัศมีเท่ากันจะเลื่อนวงกลมให้ทับกันได้สนิท'}
+],
+s2:[
+ {q:'มุมในครึ่งวงกลมมีขนาดกี่องศา',c:['90 องศา','60 องศา','120 องศา','180 องศา'],e:'ทฤษฎีบทที่ 1: มุมในครึ่งวงกลมเท่ากับ 90° หรือหนึ่งมุมฉาก'},
+ {q:'มุมที่จุดศูนย์กลางมีขนาดเป็นกี่เท่าของมุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกัน',c:['2 เท่า','เท่ากัน','3 เท่า','ครึ่งเท่า'],e:'ทฤษฎีบทที่ 2: มุมที่จุดศูนย์กลาง = 2 × มุมในส่วนโค้ง'},
+ {q:'มุมที่จุดศูนย์กลางเท่ากับ 80° มุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกันมีขนาดเท่าใด',c:['40°','80°','160°','100°'],e:'มุมในส่วนโค้งเป็นครึ่งหนึ่ง: 80 ÷ 2 = 40°'},
+ {q:'มุมในส่วนโค้งของวงกลมเท่ากับ 35° มุมที่จุดศูนย์กลางที่รองรับด้วยส่วนโค้งเดียวกันมีขนาดเท่าใด',c:['70°','35°','17.5°','145°'],e:'มุมที่จุดศูนย์กลางเป็น 2 เท่า: 2 × 35 = 70°'},
+ {q:'สามเหลี่ยม ABC แนบในครึ่งวงกลม โดย AB เป็นเส้นผ่านศูนย์กลาง ถ้ามุม A = 55° มุม B มีขนาดเท่าใด',c:['35°','55°','90°','125°'],e:'มุม C ในครึ่งวงกลม = 90° มุมในสามเหลี่ยมรวม 180° ดังนั้นมุม B = 180 − 90 − 55 = 35°'},
+ {q:'มุมกลับที่จุดศูนย์กลางเท่ากับ 240° มุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกันมีขนาดเท่าใด',c:['120°','240°','60°','100°'],e:'มุมในส่วนโค้งเป็นครึ่งหนึ่งของมุมที่จุดศูนย์กลาง: 240 ÷ 2 = 120°'},
+ {q:'ข้อใดคือเหตุผลที่มุมในครึ่งวงกลมเป็นมุมฉาก',c:['มุมที่จุดศูนย์กลางที่รองรับคือมุมตรง 180° มุมในส่วนโค้งจึงเป็นครึ่งหนึ่ง คือ 90°','เพราะเส้นผ่านศูนย์กลางยาวที่สุด','เพราะรัศมีทุกเส้นยาวเท่ากัน','เพราะสามเหลี่ยมทุกอันมีมุมรวม 90°'],e:'มุมบนเส้นตรงที่จุดศูนย์กลาง = 180° ตามทฤษฎีบทที่ 2 มุมในครึ่งวงกลม = 180 ÷ 2 = 90°'},
+ {q:'ถ้า AC เป็นเส้นผ่านศูนย์กลางของวงกลม และจุด B อยู่บนวงกลม มุม ABC มีขนาดเท่าใด',c:['90°','45°','180°','60°'],e:'มุม ABC เป็นมุมในครึ่งวงกลม จึงเท่ากับ 90°'},
+ {q:'มุมที่จุดศูนย์กลางเท่ากับ 150° มุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกันมีขนาดเท่าใด',c:['75°','150°','300°','30°'],e:'150 ÷ 2 = 75°'},
+ {q:'มุมในส่วนโค้งของวงกลมเท่ากับ 48° มุมที่จุดศูนย์กลางมีขนาดเท่าใด',c:['96°','48°','24°','132°'],e:'2 × 48 = 96°'},
+ {q:'สี่เหลี่ยม ABCD มี AC และ BD เป็นเส้นผ่านศูนย์กลางของวงกลม สี่เหลี่ยม ABCD เป็นรูปใด (ตามตัวอย่างในบทเรียน)',c:['สี่เหลี่ยมมุมฉาก','สี่เหลี่ยมจัตุรัสเสมอ','สี่เหลี่ยมด้านขนานเท่านั้น','สี่เหลี่ยมรูปว่าว'],e:'มุมทั้งสี่ของสี่เหลี่ยมเป็นมุมในครึ่งวงกลม = 90° ทุกมุม จึงเป็นสี่เหลี่ยมมุมฉาก'},
+ {q:'มุมที่จุดศูนย์กลางเท่ากับ 130° มุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกันมีขนาดเท่าใด',c:['65°','130°','260°','50°'],e:'130 ÷ 2 = 65°'},
+ {q:'สามเหลี่ยมที่แนบในครึ่งวงกลม มุมที่ฐานสองมุมรวมกันได้กี่องศา',c:['90°','180°','60°','45°'],e:'มุมยอดเป็นมุมฉาก 90° มุมที่เหลือรวมกัน = 180 − 90 = 90°'},
+ {q:'มุมในส่วนโค้งของวงกลมที่รองรับด้วยส่วนโค้งเดียวกันกับมุมที่จุดศูนย์กลาง 64° มีขนาดเท่าใด',c:['32°','64°','128°','116°'],e:'64 ÷ 2 = 32°'}
+],
+s3:[
+ {q:'มุมในส่วนโค้งของวงกลมที่รองรับด้วยส่วนโค้งเดียวกัน จะมีขนาดอย่างไร',c:['เท่ากัน','รวมกันได้ 180°','ต่างกัน 2 เท่า','รวมกันได้ 90°'],e:'ทฤษฎีบทที่ 3: มุมบนส่วนโค้งเดียวกันมีขนาดเท่ากัน'},
+ {q:'ผลบวกของมุมตรงข้ามของรูปสี่เหลี่ยมแนบในวงกลมเท่ากับเท่าใด',c:['180°','90°','360°','270°'],e:'ทฤษฎีบทที่ 8: มุมตรงข้ามรวมกัน = 180°'},
+ {q:'รูปสี่เหลี่ยมแนบในวงกลมมีมุมหนึ่งเท่ากับ 110° มุมตรงข้ามมีขนาดเท่าใด',c:['70°','110°','90°','250°'],e:'180 − 110 = 70°'},
+ {q:'รูปสี่เหลี่ยมแนบในวงกลม มุม A = 2x และมุม C = x ค่า x เท่ากับเท่าใด',c:['60°','90°','45°','30°'],e:'2x + x = 180 → 3x = 180 → x = 60° (ตัวอย่างเดียวกับในบทเรียน)'},
+ {q:'มุมสองมุมอยู่บนส่วนโค้งเดียวกัน มุมแรกเท่ากับ 42° มุมที่สองมีขนาดเท่าใด',c:['42°','138°','84°','21°'],e:'มุมบนส่วนโค้งเดียวกันเท่ากัน จึงเท่ากับ 42°'},
+ {q:'ในวงกลมเดียวกัน ถ้าส่วนโค้งสองส่วนยาวเท่ากัน มุมที่จุดศูนย์กลางที่รองรับส่วนโค้งทั้งสองจะมีขนาดอย่างไร',c:['เท่ากัน','รวมกันได้ 180°','ต่างกัน 2 เท่า','รวมกันได้ 360°'],e:'ทฤษฎีบทที่ 6: ส่วนโค้งยาวเท่ากัน มุมที่จุดศูนย์กลางที่รองรับเท่ากัน'},
+ {q:'ในวงกลมเดียวกัน ถ้ามุมที่จุดศูนย์กลางมีขนาดเท่ากัน ส่วนโค้งที่รองรับมุมทั้งสองจะเป็นอย่างไร',c:['ยาวเท่ากัน','ยาวต่างกัน 2 เท่า','รวมกันเป็นครึ่งวงกลม','เป็นส่วนโค้งน้อยเสมอ'],e:'ทฤษฎีบทที่ 4: มุมที่จุดศูนย์กลางเท่ากัน ส่วนโค้งที่รองรับยาวเท่ากัน'},
+ {q:'รูปสี่เหลี่ยมแนบในวงกลม มุม A = 85° มุม C มีขนาดเท่าใด',c:['95°','85°','75°','105°'],e:'180 − 85 = 95°'},
+ {q:'มุมในส่วนโค้งสองมุมรองรับด้วยส่วนโค้งเดียวกัน มุมหนึ่งเท่ากับ 3x อีกมุมหนึ่งเท่ากับ 75° ค่า x เท่ากับเท่าใด',c:['25°','75°','45°','15°'],e:'มุมเท่ากัน: 3x = 75 → x = 25°'},
+ {q:'รูปสี่เหลี่ยมแนบในวงกลม มุม B = 96° มุม D มีขนาดเท่าใด',c:['84°','96°','90°','264°'],e:'180 − 96 = 84°'},
+ {q:'ในวงกลมเดียวกัน ถ้าส่วนโค้งยาวเท่ากัน มุมในส่วนโค้งของวงกลมที่รองรับด้วยส่วนโค้งนั้นจะมีขนาดอย่างไร',c:['เท่ากัน','เป็น 2 เท่า','รวมกันได้ 90°','รวมกันได้ 180°'],e:'ทฤษฎีบทที่ 7: ส่วนโค้งยาวเท่ากัน มุมในส่วนโค้งที่รองรับเท่ากัน'},
+ {q:'จุด C และ D อยู่บนส่วนโค้งเดียวกัน ถ้ามุมที่จุด C เท่ากับ 58° มุมที่จุด D มีขนาดเท่าใด',c:['58°','122°','29°','116°'],e:'รองรับด้วยส่วนโค้งเดียวกัน จึงเท่ากัน = 58°'},
+ {q:'รูปสี่เหลี่ยมแนบในวงกลม มุม A = x + 20° และมุม C = 2x − 20° มุม A มีขนาดเท่าใด',c:['80°','60°','100°','70°'],e:'(x+20) + (2x−20) = 180 → 3x = 180 → x = 60 ดังนั้นมุม A = 60 + 20 = 80°'},
+ {q:'ข้อใดถูกต้องสำหรับรูปสี่เหลี่ยมแนบในวงกลม',c:['มุมตรงข้ามรวมกันได้ 180°','มุมทุกมุมเท่ากัน','มุมติดกันรวมกันได้ 90°','มุมตรงข้ามเป็น 2 เท่าของกัน'],e:'สมบัติหลักของสี่เหลี่ยมแนบในวงกลมตามทฤษฎีบทที่ 8'}
+],
+s4:[
+ {q:'เส้นสัมผัสวงกลมจะทำมุมอย่างไรกับรัศมีของวงกลมที่จุดสัมผัส',c:['ตั้งฉากกัน (90°)','ขนานกัน','ทำมุม 45°','ทำมุม 180°'],e:'เส้นสัมผัสตั้งฉากกับรัศมีที่จุดสัมผัสเสมอ'},
+ {q:'ส่วนของเส้นตรง 2 เส้นที่ลากจากจุดภายนอกจุดเดียวกันมาสัมผัสวงกลมเดียวกัน จะมีลักษณะอย่างไร',c:['ยาวเท่ากัน','ยาวต่างกัน 2 เท่า','รวมกันเท่ากับรัศมี','ตั้งฉากกัน'],e:'เส้นสัมผัสสองเส้นจากจุดภายนอกจุดเดียวกันยาวเท่ากัน'},
+ {q:'มุมที่เกิดจากคอร์ดและเส้นสัมผัสวงกลมที่จุดสัมผัส มีขนาดเท่ากับข้อใด',c:['มุมในส่วนโค้งของวงกลมที่อยู่ฝั่งตรงข้ามกับคอร์ดนั้น','มุมที่จุดศูนย์กลางเสมอ','มุมฉากเสมอ','ครึ่งหนึ่งของมุมในส่วนโค้ง'],e:'มุมคอร์ด–เส้นสัมผัส เท่ากับมุมในส่วนโค้งฝั่งตรงข้ามกับคอร์ด'},
+ {q:'PA และ PB สัมผัสวงกลมที่ A และ B ถ้ามุม APB = 50° มุม AOB ที่จุดศูนย์กลางมีขนาดเท่าใด',c:['130°','50°','90°','100°'],e:'สี่เหลี่ยม OAPB มีมุมฉากที่ A และ B สองมุม มุมรวม 360° ดังนั้นมุม AOB = 360 − 90 − 90 − 50 = 130°'},
+ {q:'มุมระหว่างคอร์ด AB กับเส้นสัมผัสที่จุด A เท่ากับ 65° มุมในส่วนโค้งฝั่งตรงข้ามที่รองรับคอร์ด AB มีขนาดเท่าใด',c:['65°','130°','90°','25°'],e:'เท่ากันตามสมบัติมุมคอร์ด–เส้นสัมผัส = 65°'},
+ {q:'จากจุดภายนอก P ลากเส้นสัมผัส PA ยาว 8 หน่วย และอีกเส้น PB สัมผัสวงกลมเดียวกัน PB ยาวเท่าใด',c:['8 หน่วย','16 หน่วย','4 หน่วย','ไม่สามารถทราบได้'],e:'เส้นสัมผัสสองเส้นจากจุดเดียวกันยาวเท่ากัน = 8 หน่วย'},
+ {q:'จุด O เป็นจุดศูนย์กลาง T เป็นจุดสัมผัส รัศมี OT กับเส้นสัมผัสที่จุด T ทำมุมกันกี่องศา',c:['90°','45°','180°','60°'],e:'รัศมีตั้งฉากกับเส้นสัมผัสที่จุดสัมผัส = 90°'},
+ {q:'สามเหลี่ยม OTP มี T เป็นจุดสัมผัส ถ้ามุมที่ O เท่ากับ 40° มุมที่ P มีขนาดเท่าใด',c:['50°','40°','90°','140°'],e:'มุมที่ T เป็นมุมฉาก มุมรวมสามเหลี่ยม 180° ดังนั้นมุม P = 180 − 90 − 40 = 50°'},
+ {q:'วงกลมวงหนึ่งมีเส้นสัมผัสได้กี่เส้น',c:['มากมาย นับไม่ถ้วน','1 เส้น','2 เส้น','เท่ากับจำนวนรัศมี'],e:'ทุกจุดบนวงกลมมีเส้นสัมผัสของตัวเอง จึงมีมากมาย นับไม่ถ้วน (ตรงกับแบบฝึกในบทเรียน)'},
+ {q:'มุมระหว่างคอร์ดกับเส้นสัมผัสเท่ากับ 38° มุมในส่วนโค้งฝั่งตรงข้ามมีขนาดเท่าใด',c:['38°','76°','90°','52°'],e:'เท่ากัน = 38°'},
+ {q:'PA และ PB สัมผัสวงกลม ถ้ามุม AOB = 140° มุม APB มีขนาดเท่าใด',c:['40°','140°','90°','70°'],e:'มุม APB = 360 − 90 − 90 − 140 = 40°'},
+ {q:'ถ้าเส้นตรงเส้นหนึ่งตั้งฉากกับรัศมีที่จุดปลายของรัศมีซึ่งอยู่บนวงกลม เส้นตรงนั้นเป็นอะไร',c:['เส้นสัมผัสวงกลม','เส้นตัดวงกลม','คอร์ด','เส้นผ่านศูนย์กลาง'],e:'เส้นที่ตั้งฉากกับรัศมีที่จุดบนวงกลม คือเส้นสัมผัสที่จุดนั้น'},
+ {q:'คอร์ดแต่ละเส้นจะแบ่งวงกลมออกเป็นกี่ส่วนโค้ง',c:['2 ส่วนโค้ง','1 ส่วนโค้ง','3 ส่วนโค้ง','4 ส่วนโค้ง'],e:'คอร์ดแบ่งวงกลมเป็นส่วนโค้งน้อยและส่วนโค้งใหญ่ รวม 2 ส่วนโค้ง'},
+ {q:'ข้อใดไม่ถูกต้องเกี่ยวกับเส้นสัมผัสวงกลม',c:['เส้นสัมผัสผ่านจุดศูนย์กลางของวงกลมได้','เส้นสัมผัสตัดวงกลมเพียงจุดเดียว','เส้นสัมผัสตั้งฉากกับรัศมีที่จุดสัมผัส','จากจุดภายนอกจุดหนึ่งลากเส้นสัมผัสได้ 2 เส้น'],e:'เส้นสัมผัสอยู่ภายนอกวงกลม แตะเพียงจุดเดียว จึงผ่านจุดศูนย์กลางไม่ได้'}
+]
+};
+
+const FINAL_BANK=[
+ {q:'มุมที่จุดศูนย์กลางเท่ากับ 96° มุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกันมีขนาดเท่าใด',c:['48°','96°','192°','84°'],e:'96 ÷ 2 = 48°'},
+ {q:'มุมในส่วนโค้งของวงกลมเท่ากับ 52° มุมที่จุดศูนย์กลางมีขนาดเท่าใด',c:['104°','52°','26°','128°'],e:'2 × 52 = 104°'},
+ {q:'สามเหลี่ยมแนบในครึ่งวงกลม มุมหนึ่งเท่ากับ 38° อีกมุมที่เหลือ (ไม่ใช่มุมฉาก) มีขนาดเท่าใด',c:['52°','38°','90°','142°'],e:'180 − 90 − 38 = 52°'},
+ {q:'รูปสี่เหลี่ยมแนบในวงกลม มุมหนึ่งเท่ากับ 123° มุมตรงข้ามมีขนาดเท่าใด',c:['57°','123°','90°','67°'],e:'180 − 123 = 57°'},
+ {q:'มุมสองมุมรองรับด้วยส่วนโค้งเดียวกัน มุมแรก 67° มุมที่สองมีขนาดเท่าใด',c:['67°','113°','33.5°','134°'],e:'ส่วนโค้งเดียวกัน มุมเท่ากัน = 67°'},
+ {q:'มุมระหว่างคอร์ดกับเส้นสัมผัสที่จุดสัมผัสเท่ากับ 74° มุมในส่วนโค้งฝั่งตรงข้ามมีขนาดเท่าใด',c:['74°','148°','90°','16°'],e:'เท่ากัน = 74°'},
+ {q:'PA และ PB สัมผัสวงกลม ถ้ามุม APB = 64° มุม AOB มีขนาดเท่าใด',c:['116°','64°','90°','128°'],e:'360 − 90 − 90 − 64 = 116°'},
+ {q:'PA และ PB สัมผัสวงกลม ถ้ามุม AOB = 152° มุม APB มีขนาดเท่าใด',c:['28°','152°','76°','90°'],e:'360 − 90 − 90 − 152 = 28°'},
+ {q:'วงกลมมีรัศมียาว 7 หน่วย เส้นผ่านศูนย์กลางยาวเท่าใด',c:['14 หน่วย','7 หน่วย','3.5 หน่วย','21 หน่วย'],e:'เส้นผ่านศูนย์กลาง = 2 × 7 = 14 หน่วย'},
+ {q:'มุมกลับที่จุดศูนย์กลางเท่ากับ 260° มุมในส่วนโค้งที่รองรับมีขนาดเท่าใด',c:['130°','260°','100°','80°'],e:'260 ÷ 2 = 130°'},
+ {q:'รูปสี่เหลี่ยมแนบในวงกลม มุมตรงข้ามกันคือ 2x และ x ค่า x เท่ากับเท่าใด',c:['60°','90°','45°','120°'],e:'2x + x = 180 → x = 60°'},
+ {q:'สามเหลี่ยม OTP มี T เป็นจุดสัมผัส ถ้ามุมที่ P เท่ากับ 33° มุมที่ O มีขนาดเท่าใด',c:['57°','33°','90°','147°'],e:'180 − 90 − 33 = 57°'},
+ {q:'เส้นตัดวงกลมตัดวงกลมที่กี่จุด',c:['2 จุด','1 จุด','3 จุด','0 จุด'],e:'เส้นตัดวงกลมตัดวงกลมสองจุด'},
+ {q:'มุมในครึ่งวงกลมมีขนาดเท่าใด',c:['90°','180°','45°','60°'],e:'ทฤษฎีบทที่ 1: มุมในครึ่งวงกลม = 90°'},
+ {q:'ข้อใดกล่าวถูกต้อง',c:['มุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกันมีขนาดเท่ากัน','มุมในส่วนโค้งเป็น 2 เท่าของมุมที่จุดศูนย์กลาง','เส้นสัมผัสตัดวงกลม 2 จุด','สี่เหลี่ยมแนบในวงกลมมีมุมตรงข้ามรวมกัน 90°'],e:'ทฤษฎีบทที่ 3 ส่วนข้ออื่นกลับด้าน/ไม่ถูก: มุมที่จุดศูนย์กลางต่างหากที่เป็น 2 เท่า, เส้นสัมผัสตัดจุดเดียว, มุมตรงข้ามรวม 180°'},
+ {q:'คอร์ดที่ยาวที่สุดของวงกลมคือข้อใด',c:['เส้นผ่านศูนย์กลาง','รัศมี','เส้นสัมผัส','ส่วนโค้งใหญ่'],e:'เส้นผ่านศูนย์กลางเป็นคอร์ดที่ยาวที่สุด'},
+ {q:'มุมที่จุดศูนย์กลางมีขนาดเป็น 2 เท่าของมุมใด',c:['มุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกัน','มุมในครึ่งวงกลมเสมอ','มุมตรงข้ามของสี่เหลี่ยมแนบใน','มุมระหว่างคอร์ดกับเส้นสัมผัส'],e:'ทฤษฎีบทที่ 2'},
+ {q:'จากจุดภายนอกจุดหนึ่ง เส้นสัมผัสเส้นหนึ่งยาว 12 หน่วย อีกเส้นหนึ่งที่สัมผัสวงกลมเดียวกันยาวเท่าใด',c:['12 หน่วย','24 หน่วย','6 หน่วย','หาค่าไม่ได้'],e:'เส้นสัมผัสสองเส้นจากจุดเดียวกันยาวเท่ากัน'},
+ {q:'รูปสี่เหลี่ยมแนบในวงกลม มุม A = 78° มุม C มีขนาดเท่าใด',c:['102°','78°','90°','12°'],e:'180 − 78 = 102°'},
+ {q:'มุมในส่วนโค้งของวงกลมเท่ากับ 29° มุมที่จุดศูนย์กลางที่รองรับด้วยส่วนโค้งเดียวกันมีขนาดเท่าใด',c:['58°','29°','14.5°','151°'],e:'2 × 29 = 58°'}
+];
+
+/* ================== เนื้อหาบทเรียน ================== */
+function flipCards(arr){return '<div class="flip-grid">'+arr.map(it=>`<div class="flip" onclick="this.classList.toggle('flipped')"><div class="flip-in"><div class="flip-f"><div class="ic">${it[0]}</div><b>${it[1]}</b><small>แตะเพื่อพลิก</small></div><div class="flip-b">${it[2]}</div></div></div>`).join('')+'</div>';}
+function actBox(id,title,desc){return `<div class="act"><div class="act-h">🎯 ${title}</div><div class="act-d">${desc}</div><div id="${id}"></div></div>`;}
+
+const LESSONS={
+s1:()=>`
+<section class="card"><h3>⭕ วงกลมคืออะไร</h3>
+<div class="def"><b>วงกลม</b> คือรูปเรขาคณิตบนระนาบ ซึ่งแต่ละจุดบนรูปอยู่ห่างจากจุดคงที่จุดหนึ่งบนระนาบเดียวกันเป็นระยะเท่ากัน เรียกจุดคงที่ว่า <b>จุดศูนย์กลาง</b> และเรียกระยะที่เท่ากันว่า <b>รัศมี</b></div>
+<div class="center"><svg viewBox="0 0 220 200" style="max-width:330px;width:100%">
+<circle cx="110" cy="100" r="78" fill="#f0f9ff" stroke="#334155" stroke-width="2.4"/>
+<line x1="32" y1="100" x2="188" y2="100" stroke="#f43f5e" stroke-width="2.6"/>
+<line x1="110" y1="100" x2="165" y2="45" stroke="#0ea5e9" stroke-width="2.6"/>
+<line x1="110" y1="22" x2="165" y2="155" stroke="#8b5cf6" stroke-width="2.6"/>
+<circle cx="110" cy="100" r="4" fill="#1e293b"/><circle cx="165" cy="45" r="3.4" fill="#0ea5e9"/><circle cx="110" cy="22" r="3.4" fill="#8b5cf6"/><circle cx="165" cy="155" r="3.4" fill="#8b5cf6"/>
+<text x="98" y="118" font-size="13" font-weight="700">O</text>
+<text x="140" y="62" font-size="13" font-weight="700" fill="#0284c7">รัศมี</text>
+<text x="66" y="90" font-size="13" font-weight="700" fill="#e11d48">เส้นผ่านศูนย์กลาง</text>
+<text x="146" y="106" font-size="13" font-weight="700" fill="#7c3aed">คอร์ด</text>
+</svg></div>
+<p>การเรียกชื่อวงกลม เรียกตามชื่อจุดศูนย์กลาง เช่น วงกลมที่มีจุด O เป็นจุดศูนย์กลาง เรียกว่า <b>วงกลม O</b> · รัศมีของวงกลมเดียวกันยาวเท่ากันทุกเส้น และวงกลมสองวงที่มีรัศมียาวเท่ากันจะ <b>เท่ากันทุกประการ</b></p></section>
+<section class="card"><h3>🧩 ส่วนต่าง ๆ ของวงกลม</h3><div class="terms">
+<div class="term"><h4>📍 จุดศูนย์กลาง (Center)</h4>จุดคงที่ตรงกลางวงกลม ทุกจุดบนวงกลมอยู่ห่างจากจุดนี้เท่ากัน</div>
+<div class="term"><h4>📏 รัศมี (Radius)</h4>ส่วนของเส้นตรงจากจุดศูนย์กลางไปจุดบนวงกลม ยาวเท่ากันทุกเส้น</div>
+<div class="term"><h4>↔️ เส้นผ่านศูนย์กลาง (Diameter)</h4>คอร์ดที่ยาวที่สุด ผ่านจุดศูนย์กลาง ยาวเป็น 2 เท่าของรัศมี</div>
+<div class="term"><h4>🎸 คอร์ด (Chord)</h4>ส่วนของเส้นตรงที่มีจุดปลายทั้งสองอยู่บนวงกลมเดียวกัน</div>
+<div class="term"><h4>✂️ เส้นตัดวงกลม (Secant)</h4>เส้นตรงที่ตัดวงกลม <b>สองจุด</b></div>
+<div class="term"><h4>👆 เส้นสัมผัส (Tangent)</h4>เส้นตรงที่ตัดวงกลม <b>เพียงจุดเดียว</b> เรียกจุดนั้นว่า <b>จุดสัมผัส</b></div>
+</div>
+<div class="center"><svg viewBox="0 0 220 200" style="max-width:330px;width:100%">
+<circle cx="110" cy="100" r="78" fill="#fefce8" stroke="#334155" stroke-width="2.4"/>
+<line x1="188" y1="8" x2="188" y2="192" stroke="#22c55e" stroke-width="2.8"/>
+<line x1="14" y1="52" x2="206" y2="158" stroke="#f59e0b" stroke-width="2.6"/>
+<circle cx="188" cy="100" r="4" fill="#16a34a"/>
+<text x="150" y="30" font-size="13" font-weight="700" fill="#16a34a">เส้นสัมผัส</text>
+<text x="196" y="112" font-size="12.5" font-weight="700" fill="#16a34a">จุดสัมผัส</text>
+<text x="18" y="42" font-size="13" font-weight="700" fill="#b45309">เส้นตัดวงกลม</text>
+</svg></div>
+<p class="mut">แตะการ์ดเพื่อพลิกทบทวนส่วนต่าง ๆ ของวงกลม</p>
+${flipCards([['📏','รัศมี','ส่วนของเส้นตรงจากจุดศูนย์กลางไปจุดบนวงกลม'],['↔️','เส้นผ่านศูนย์กลาง','คอร์ดที่ยาวที่สุด ผ่านจุดศูนย์กลาง ยาว = 2 เท่าของรัศมี'],['🎸','คอร์ด','ส่วนของเส้นตรงที่มีจุดปลายทั้งสองอยู่บนวงกลม'],['👆','เส้นสัมผัส','เส้นตรงที่ตัดวงกลมเพียงจุดเดียว จุดนั้นเรียกจุดสัมผัส'],['✂️','เส้นตัดวงกลม','เส้นตรงที่ตัดวงกลมสองจุด'],['🌙','ส่วนโค้ง','ส่วนหนึ่งของเส้นรอบวง แบ่งเป็นส่วนโค้งน้อยและส่วนโค้งใหญ่']])}
+${actBox('a-match','จับคู่คำศัพท์กับความหมาย','คลิกคำศัพท์ทางซ้าย แล้วคลิกความหมายที่ตรงกันทางขวา')}
+${actBox('a-parts','เส้นนี้คืออะไร?','อ่านนิยามแล้วจำแนกให้ถูกว่าเป็นส่วนใดของวงกลม')}</section>
+<section class="card"><h3>🌙 ส่วนโค้ง เซกเตอร์ และเซกเมนต์</h3>
+<p>คอร์ดแต่ละเส้นแบ่งวงกลมออกเป็น <b>ส่วนโค้ง 2 ส่วน</b> คือ <b>ส่วนโค้งน้อย</b> (สั้นกว่า) และ <b>ส่วนโค้งใหญ่</b> (ยาวกว่า) ส่วนเส้นผ่านศูนย์กลางแบ่งวงกลมเป็น 2 ส่วนเท่ากัน เรียกว่า <b>ครึ่งวงกลม</b></p>
+<div class="two">
+<div class="box"><h4>🍕 เซกเตอร์ (Sector)</h4>บริเวณที่ล้อมด้วย <b>รัศมี 2 เส้น</b> และส่วนโค้ง เหมือนชิ้นพิซซ่า</div>
+<div class="box"><h4>🌙 เซกเมนต์ (Segment)</h4>บริเวณที่ล้อมด้วย <b>คอร์ด 1 เส้น</b> และส่วนโค้ง</div>
+</div>
+<div class="tip">💡 <b>จำง่าย:</b> เซกเตอร์มี “รัศมี” เป็นขอบตรง 2 ข้าง ส่วนเซกเมนต์มี “คอร์ด” เพียงเส้นเดียว</div></section>
+<section class="card"><h3>📐 มุมที่เกี่ยวกับวงกลม 3 ชนิด</h3>
+<div class="steps">
+<div class="step"><div class="n">1</div><b>มุมที่จุดศูนย์กลาง</b><svg viewBox="0 0 180 160" style="width:100%"><circle cx="90" cy="80" r="58" fill="#f0f9ff" stroke="#334155" stroke-width="2.2"/><line x1="90" y1="80" x2="131" y2="39" stroke="#0ea5e9" stroke-width="2.4"/><line x1="90" y1="80" x2="148" y2="80" stroke="#0ea5e9" stroke-width="2.4"/><path d="M 112 80 A 22 22 0 0 0 105 65" fill="none" stroke="#f43f5e" stroke-width="2.4"/><circle cx="90" cy="80" r="3.6" fill="#1e293b"/><text x="82" y="98" font-size="12" font-weight="700">O</text></svg><p>จุดยอดมุมอยู่ที่ <b>จุดศูนย์กลาง</b> แขนทั้งสองเป็นรัศมี</p></div>
+<div class="step"><div class="n">2</div><b>มุมในส่วนโค้งของวงกลม</b><svg viewBox="0 0 180 160" style="width:100%"><circle cx="90" cy="80" r="58" fill="#fff7ed" stroke="#334155" stroke-width="2.2"/><line x1="90" y1="22" x2="32" y2="80" stroke="#f59e0b" stroke-width="2.4"/><line x1="90" y1="22" x2="148" y2="80" stroke="#f59e0b" stroke-width="2.4"/><path d="M 76 44 A 24 24 0 0 0 104 44" fill="none" stroke="#f43f5e" stroke-width="2.4"/><circle cx="90" cy="22" r="3.6" fill="#1e293b"/></svg><p>จุดยอดมุมอยู่ <b>บนวงกลม</b> แขนทั้งสองตัดวงกลม</p></div>
+<div class="step"><div class="n">3</div><b>มุมในครึ่งวงกลม</b><svg viewBox="0 0 180 160" style="width:100%"><circle cx="90" cy="80" r="58" fill="#f0fdf4" stroke="#334155" stroke-width="2.2"/><line x1="32" y1="80" x2="148" y2="80" stroke="#94a3b8" stroke-width="2.2"/><line x1="90" y1="22" x2="32" y2="80" stroke="#22c55e" stroke-width="2.4"/><line x1="90" y1="22" x2="148" y2="80" stroke="#22c55e" stroke-width="2.4"/><polyline points="82,38 90,46 98,38" fill="none" stroke="#f43f5e" stroke-width="2.4"/><circle cx="90" cy="22" r="3.6" fill="#1e293b"/></svg><p>จุดยอดมุมอยู่บนวงกลม และแขนทั้งสองผ่าน <b>จุดปลายของเส้นผ่านศูนย์กลาง</b></p></div>
+</div>
+<div class="tip">💡 มุมแต่ละมุมจะ “รองรับ” ด้วยส่วนโค้งที่อยู่ตรงข้ามจุดยอดมุม — คำนี้จะใช้ตลอดทั้งบท จำภาพนี้ไว้ให้ดี</div></section>`,
+s2:()=>`
+<section class="card"><h3>📐 ทฤษฎีบทที่ 1 — มุมในครึ่งวงกลม</h3>
+<div class="def"><b>ทฤษฎีบทที่ 1:</b> มุมในครึ่งวงกลมมีขนาด <b>90 องศา</b> หรือ <b>หนึ่งมุมฉาก</b></div>
+<div class="center"><svg viewBox="0 0 220 200" style="max-width:320px;width:100%">
+<circle cx="110" cy="100" r="78" fill="#fff7ed" stroke="#334155" stroke-width="2.4"/>
+<line x1="32" y1="100" x2="188" y2="100" stroke="#94a3b8" stroke-width="2.4"/>
+<line x1="110" y1="22" x2="32" y2="100" stroke="#334155" stroke-width="2.6"/>
+<line x1="110" y1="22" x2="188" y2="100" stroke="#334155" stroke-width="2.6"/>
+<polyline points="100,36 110,46 120,36" fill="none" stroke="#f43f5e" stroke-width="2.6"/>
+<circle cx="110" cy="100" r="4" fill="#1e293b"/><circle cx="110" cy="22" r="3.6" fill="#1e293b"/>
+<text x="120" y="40" font-size="14" font-weight="700" fill="#e11d48">90°</text>
+<text x="102" y="120" font-size="13" font-weight="700">O</text><text x="18" y="94" font-size="13" font-weight="700">A</text><text x="192" y="94" font-size="13" font-weight="700">B</text><text x="114" y="18" font-size="13" font-weight="700">C</text>
+</svg></div>
+<p><b>ทำไมถึงเป็น 90°?</b> เพราะมุมที่จุดศูนย์กลางที่รองรับส่วนโค้งเดียวกันคือมุมบนเส้นตรง AB = 180° และตามทฤษฎีบทที่ 2 มุมในส่วนโค้งเป็นครึ่งหนึ่ง → 180 ÷ 2 = 90°</p>
+<div class="ex"><b>ตัวอย่าง (จากบทเรียน):</b> AB เป็นเส้นผ่านศูนย์กลาง มุม BAC = 65° จงหามุม ABC<br>มุม ACB เป็นมุมในครึ่งวงกลม = 90° → มุม ABC = 180 − 90 − 65 = <b>25°</b></div>
+${actBox('c-t1','ฝึกหาค่า x — ทฤษฎีบทที่ 1','รูปสุ่มใหม่ทุกข้อ! หามุมที่เหลือในสามเหลี่ยมที่แนบในครึ่งวงกลม')}</section>
+<section class="card"><h3>🎯 ทฤษฎีบทที่ 2 — มุมที่จุดศูนย์กลางเป็น 2 เท่า</h3>
+<div class="def"><b>ทฤษฎีบทที่ 2:</b> ในวงกลมเดียวกัน <b>มุมที่จุดศูนย์กลาง</b> มีขนาดเป็น <b>2 เท่า</b> ของขนาดของ <b>มุมในส่วนโค้งของวงกลม</b> ที่รองรับด้วย <b>ส่วนโค้งเดียวกัน</b></div>
+<div class="center"><svg viewBox="0 0 220 200" style="max-width:320px;width:100%">
+<circle cx="110" cy="100" r="78" fill="#fdf4ff" stroke="#334155" stroke-width="2.4"/>
+<line x1="110" y1="100" x2="55" y2="45" stroke="#94a3b8" stroke-width="2.4"/>
+<line x1="110" y1="100" x2="165" y2="45" stroke="#94a3b8" stroke-width="2.4"/>
+<line x1="110" y1="178" x2="55" y2="45" stroke="#334155" stroke-width="2.6"/>
+<line x1="110" y1="178" x2="165" y2="45" stroke="#334155" stroke-width="2.6"/>
+<circle cx="110" cy="100" r="4" fill="#1e293b"/>
+<text x="98" y="86" font-size="15" font-weight="700" fill="#a21caf">2x</text>
+<text x="102" y="168" font-size="15" font-weight="700" fill="#e11d48">x</text>
+<text x="102" y="120" font-size="13" font-weight="700">O</text>
+</svg></div>
+<table class="tb"><tr><th>มุมที่จุดศูนย์กลาง</th><th>มุมในส่วนโค้ง (ส่วนโค้งเดียวกัน)</th></tr>
+<tr><td>80°</td><td>40°</td></tr><tr><td>150°</td><td>75°</td></tr>
+<tr><td>มุมกลับ 240°</td><td>120°</td></tr><tr><td>36° (โจทย์ให้มุมในส่วนโค้ง)</td><td>มุมที่จุดศูนย์กลาง = 72°</td></tr></table>
+<div class="tip">💡 <b>ท่องสั้น ๆ:</b> “ศูนย์กลางเป็นสองเท่า ส่วนโค้งเป็นครึ่งหนึ่ง” — ใช้ได้กับมุมกลับด้วย</div>
+${actBox('c-t2','ฝึกหาค่า x — ทฤษฎีบทที่ 2','สลับถามทั้งสองทิศ: ให้ศูนย์กลางหาในส่วนโค้ง และให้ในส่วนโค้งหาศูนย์กลาง รวมถึงมุมกลับ')}</section>
+<section class="card"><h3>🧭 เลือกทฤษฎีบทให้ถูก</h3>
+<p>ก่อนคำนวณทุกครั้ง ให้ถามตัวเองก่อนว่าโจทย์เป็นเรื่องของทฤษฎีบทใด ฝึกแยกให้คล่องจากกิจกรรมนี้</p>
+${actBox('a-thm','ข้อนี้ใช้ทฤษฎีบทที่ 1 หรือ 2?','อ่านสถานการณ์แล้วเลือกทฤษฎีบทที่ต้องใช้')}</section>`
+};
+
+LESSONS.s3=()=>`
+<section class="card"><h3>👯 ทฤษฎีบทที่ 3 — มุมบนส่วนโค้งเดียวกันเท่ากัน</h3>
+<div class="def"><b>ทฤษฎีบทที่ 3:</b> ในวงกลมเดียวกัน มุมในส่วนโค้งของวงกลมที่รองรับด้วย <b>ส่วนโค้งเดียวกัน</b> จะมีขนาด <b>เท่ากัน</b></div>
+<div class="center"><svg viewBox="0 0 220 200" style="max-width:320px;width:100%">
+<circle cx="110" cy="100" r="78" fill="#f0fdf4" stroke="#334155" stroke-width="2.4"/>
+<line x1="55" y1="45" x2="70" y2="168" stroke="#334155" stroke-width="2.6"/>
+<line x1="165" y1="45" x2="70" y2="168" stroke="#334155" stroke-width="2.6"/>
+<line x1="55" y1="45" x2="155" y2="160" stroke="#94a3b8" stroke-width="2.4"/>
+<line x1="165" y1="45" x2="155" y2="160" stroke="#94a3b8" stroke-width="2.4"/>
+<text x="52" y="152" font-size="15" font-weight="700" fill="#e11d48">x</text>
+<text x="140" y="146" font-size="15" font-weight="700" fill="#e11d48">x</text>
+<text x="40" y="40" font-size="13" font-weight="700">A</text><text x="170" y="40" font-size="13" font-weight="700">B</text>
+</svg></div>
+<p>ไม่ว่าจุดยอดมุมจะอยู่ตรงไหนบนส่วนโค้งฝั่งเดียวกัน ถ้ารองรับด้วยส่วนโค้งเดียวกัน มุมจะมีขนาดเท่ากันเสมอ</p>
+${actBox('c-t3','ฝึกหาค่า x — ทฤษฎีบทที่ 3','มีทั้งแบบมุมเท่ากันตรง ๆ และแบบมุมย่อยซ่อนอยู่ ต้องหักออกให้ถูก')}</section>
+<section class="card"><h3>🌈 ทฤษฎีบทที่ 4–7 — ส่วนโค้งกับมุม</h3>
+<table class="tb"><tr><th>ทฤษฎีบท</th><th>ใจความ</th></tr>
+<tr><td><b>ทบ.4</b></td><td>มุมที่จุดศูนย์กลางเท่ากัน → ส่วนโค้งที่รองรับ <b>ยาวเท่ากัน</b></td></tr>
+<tr><td><b>ทบ.5</b></td><td>มุมในส่วนโค้งเท่ากัน → ส่วนโค้งที่รองรับ <b>ยาวเท่ากัน</b></td></tr>
+<tr><td><b>ทบ.6</b></td><td>ส่วนโค้งยาวเท่ากัน → มุมที่จุดศูนย์กลางที่รองรับ <b>เท่ากัน</b></td></tr>
+<tr><td><b>ทบ.7</b></td><td>ส่วนโค้งยาวเท่ากัน → มุมในส่วนโค้งที่รองรับ <b>เท่ากัน</b></td></tr></table>
+<div class="tip">💡 ทั้ง 4 ทฤษฎีบทคือประโยคคู่กลับกัน: “มุมเท่ากัน ↔ ส่วนโค้งยาวเท่ากัน” ใช้ได้ทั้งกับมุมที่จุดศูนย์กลางและมุมในส่วนโค้ง</div></section>
+<section class="card"><h3>🔷 ทฤษฎีบทที่ 8 — สี่เหลี่ยมแนบในวงกลม</h3>
+<div class="def"><b>ทฤษฎีบทที่ 8:</b> ถ้ารูปสี่เหลี่ยมใด ๆ แนบในวงกลมแล้ว <b>ผลบวกของมุมตรงข้ามเท่ากับ 180°</b></div>
+<div class="center"><svg viewBox="0 0 220 200" style="max-width:320px;width:100%">
+<circle cx="110" cy="100" r="78" fill="#fffbeb" stroke="#334155" stroke-width="2.4"/>
+<polygon points="55,45 165,45 180,130 45,140" fill="rgba(139,92,246,.10)" stroke="#334155" stroke-width="2.6"/>
+<text x="66" y="66" font-size="14" font-weight="700" fill="#b45309">110°</text>
+<text x="158" y="128" font-size="14" font-weight="700" fill="#e11d48">x</text>
+<text x="40" y="40" font-size="13" font-weight="700">A</text><text x="170" y="40" font-size="13" font-weight="700">B</text><text x="184" y="136" font-size="13" font-weight="700">C</text><text x="28" y="146" font-size="13" font-weight="700">D</text>
+</svg></div>
+<div class="ex"><b>ตัวอย่างที่ 1:</b> มุมตรงข้ามกันคือ 110° กับ x → x = 180 − 110 = <b>70°</b></div>
+<div class="ex"><b>ตัวอย่างที่ 2 (จากบทเรียน):</b> มุมตรงข้ามคือ 2x กับ x → 2x + x = 180 → 3x = 180 → <b>x = 60°</b></div>
+${actBox('c-t8','ฝึกหาค่า x — ทฤษฎีบทที่ 8','มีทั้งแบบให้มุมตรงข้ามหาอีกมุม และแบบพีชคณิต 2x แบบในบทเรียน')}
+${actBox('a-cyc','สมบัติไหนเป็นอย่างไร?','จำแนกความสัมพันธ์ของมุม/ส่วนโค้งแต่ละคู่')}</section>`;
+
+LESSONS.s4=()=>`
+<section class="card"><h3>🎸 คอร์ดของวงกลม — ทบทวน</h3>
+<div class="def"><b>คอร์ด</b> คือส่วนของเส้นตรงที่มีจุดปลายทั้งสองอยู่บนวงกลมเดียวกัน คอร์ดแต่ละเส้นแบ่งวงกลมออกเป็นส่วนโค้ง 2 ส่วน และ <b>เส้นผ่านศูนย์กลางเป็นคอร์ดที่ยาวที่สุด</b> เพราะผ่านจุดศูนย์กลาง</div>
+<p>โจทย์เรื่องคอร์ดในบทนี้มักผูกกับมุม: คอร์ดเป็นแขนของมุมในส่วนโค้ง คอร์ดร่วมกับเส้นสัมผัสสร้างมุมที่จุดสัมผัส และคอร์ด 4 เส้นประกอบเป็นสี่เหลี่ยมแนบในวงกลม — ถ้าจำทฤษฎีบทในส่วนที่ 2–3 ได้ เรื่องคอร์ดจะกลายเป็นเรื่องของการเลือกทฤษฎีบทให้ถูก</p></section>
+<section class="card"><h3>👆 เส้นสัมผัสวงกลม — 3 สมบัติสำคัญ</h3>
+<div class="steps">
+<div class="step"><div class="n">1</div><b>ตั้งฉากกับรัศมี</b><svg viewBox="0 0 180 160" style="width:100%"><circle cx="90" cy="86" r="56" fill="#fff1f2" stroke="#334155" stroke-width="2.2"/><line x1="20" y1="30" x2="160" y2="30" stroke="#22c55e" stroke-width="2.6"/><line x1="90" y1="86" x2="90" y2="30" stroke="#64748b" stroke-width="2.4"/><polyline points="90,44 104,44 104,30" fill="none" stroke="#f43f5e" stroke-width="2.2"/><circle cx="90" cy="30" r="3.6" fill="#1e293b"/><text x="96" y="24" font-size="12" font-weight="700">T</text><text x="96" y="92" font-size="12" font-weight="700">O</text></svg><p>เส้นสัมผัส <b>ตั้งฉากกับรัศมี</b> ที่จุดสัมผัส → เกิดมุมฉากเสมอ</p></div>
+<div class="step"><div class="n">2</div><b>สองเส้นจากจุดเดียวกันยาวเท่ากัน</b><svg viewBox="0 0 180 160" style="width:100%"><circle cx="66" cy="80" r="48" fill="#fdf4ff" stroke="#334155" stroke-width="2.2"/><line x1="66" y1="80" x2="92" y2="38" stroke="#94a3b8" stroke-width="2"/><line x1="66" y1="80" x2="92" y2="122" stroke="#94a3b8" stroke-width="2"/><line x1="160" y1="80" x2="92" y2="38" stroke="#334155" stroke-width="2.4"/><line x1="160" y1="80" x2="92" y2="122" stroke="#334155" stroke-width="2.4"/><circle cx="160" cy="80" r="3.6" fill="#1e293b"/><text x="164" y="76" font-size="12" font-weight="700">P</text></svg><p>เส้นสัมผัส 2 เส้นจาก <b>จุดภายนอกจุดเดียวกัน</b> ยาวเท่ากัน และมุมระหว่างเส้นสัมผัส + มุมที่จุดศูนย์กลาง = 180°</p></div>
+<div class="step"><div class="n">3</div><b>มุมคอร์ด–เส้นสัมผัส</b><svg viewBox="0 0 180 160" style="width:100%"><circle cx="90" cy="80" r="58" fill="#f0f9ff" stroke="#334155" stroke-width="2.2"/><line x1="32" y1="8" x2="32" y2="152" stroke="#22c55e" stroke-width="2.6"/><line x1="32" y1="80" x2="131" y2="39" stroke="#334155" stroke-width="2.4"/><line x1="131" y1="121" x2="32" y2="80" stroke="#94a3b8" stroke-width="2"/><line x1="131" y1="121" x2="131" y2="39" stroke="#94a3b8" stroke-width="2"/><text x="38" y="66" font-size="13" font-weight="700" fill="#e11d48">x</text><text x="118" y="112" font-size="13" font-weight="700" fill="#e11d48">x</text></svg><p>มุมระหว่าง <b>คอร์ดกับเส้นสัมผัส</b> ที่จุดสัมผัส = มุมในส่วนโค้ง <b>ฝั่งตรงข้าม</b> กับคอร์ดนั้น</p></div>
+</div>
+<div class="ex"><b>ตัวอย่าง (จากบทเรียน):</b> WV และ WX สัมผัสวงกลมที่ V และ X ถ้ามุมในส่วนโค้ง VYX = 66° มุมระหว่างเส้นสัมผัสทั้งสอง VWX = 180 − 66 = <b>114°</b></div>
+<div class="ex"><b>ตัวอย่าง:</b> PA, PB สัมผัสวงกลม มุม APB = 50° → มุม AOB = 360 − 90 − 90 − 50 = <b>130°</b> (สี่เหลี่ยม OAPB มีมุมฉากที่จุดสัมผัสทั้งสอง)</div>
+${actBox('c-tan','ฝึกหาค่า x — เส้นสัมผัส','สุ่มครบทั้ง 3 สมบัติ: ตั้งฉากกับรัศมี / มุมคอร์ด–เส้นสัมผัส / เส้นสัมผัสสองเส้น')}
+${actBox('a-tan','ถูกหรือผิด — เส้นสัมผัส','ตัดสินข้อความเกี่ยวกับเส้นสัมผัสแต่ละข้อ')}</section>`;
+
+function initActivities(key){
+ if(key==='s1'){
+  mountMatch('a-match',[['จุดศูนย์กลาง','จุดคงที่ที่ทุกจุดบนวงกลมอยู่ห่างเท่ากัน'],['รัศมี','ส่วนของเส้นตรงจากจุดศูนย์กลางไปจุดบนวงกลม'],['เส้นผ่านศูนย์กลาง','คอร์ดที่ยาวที่สุด ผ่านจุดศูนย์กลาง'],['คอร์ด','ส่วนของเส้นตรงที่มีจุดปลายทั้งสองอยู่บนวงกลม'],['เส้นสัมผัส','เส้นตรงที่ตัดวงกลมเพียงจุดเดียว'],['เส้นตัดวงกลม','เส้นตรงที่ตัดวงกลมสองจุด']]);
+  mountClassify('a-parts',['รัศมี','เส้นผ่านศูนย์กลาง','คอร์ด','เส้นสัมผัส','เส้นตัดวงกลม'],[
+   {t:'ส่วนของเส้นตรงจากจุดศูนย์กลางไปถึงจุดบนวงกลม',a:0},{t:'คอร์ดที่ลากผ่านจุดศูนย์กลาง',a:1},{t:'ส่วนของเส้นตรงที่มีจุดปลายทั้งสองอยู่บนวงกลม แต่ไม่ผ่านจุดศูนย์กลาง',a:2},{t:'เส้นตรงที่แตะวงกลมเพียงจุดเดียว',a:3},{t:'เส้นตรงที่ตัดผ่านวงกลมสองจุด',a:4},{t:'เส้นตรงจากจุดบนวงกลมด้านหนึ่ง ผ่านจุดศูนย์กลาง ไปถึงอีกด้านหนึ่ง',a:1}]);
+ }
+ if(key==='s2'){
+  mountCalc('c-t1',[genT1]);
+  mountCalc('c-t2',[genT2]);
+  mountClassify('a-thm',['ทฤษฎีบทที่ 1','ทฤษฎีบทที่ 2'],[
+   {t:'หาขนาดของมุมที่จุดยอดอยู่บนวงกลม และแขนทั้งสองผ่านจุดปลายของเส้นผ่านศูนย์กลาง',a:0},{t:'มุมที่จุดศูนย์กลาง 90° จงหามุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกัน',a:1},{t:'สามเหลี่ยมแนบในครึ่งวงกลม จงหามุมที่เหลืออีกมุมหนึ่ง',a:0},{t:'มุมในส่วนโค้ง 30° จงหามุมที่จุดศูนย์กลาง',a:1},{t:'มุมกลับที่จุดศูนย์กลาง 300° จงหามุมในส่วนโค้งที่รองรับ',a:1},{t:'พิสูจน์ว่าสี่เหลี่ยมที่มีเส้นทแยงมุมเป็นเส้นผ่านศูนย์กลาง เป็นสี่เหลี่ยมมุมฉาก',a:0}]);
+ }
+ if(key==='s3'){
+  mountCalc('c-t3',[genT3]);
+  mountCalc('c-t8',[genT8]);
+  mountClassify('a-cyc',['เท่ากัน','รวมกันได้ 180°','เป็น 2 เท่าของอีกมุมหนึ่ง'],[
+   {t:'มุมในส่วนโค้งสองมุมที่รองรับด้วยส่วนโค้งเดียวกัน',a:0,e:'ทฤษฎีบทที่ 3'},{t:'มุมตรงข้ามของรูปสี่เหลี่ยมแนบในวงกลม',a:1,e:'ทฤษฎีบทที่ 8'},{t:'มุมที่จุดศูนย์กลาง เทียบกับมุมในส่วนโค้งที่รองรับส่วนโค้งเดียวกัน',a:2,e:'ทฤษฎีบทที่ 2'},{t:'ส่วนโค้งที่รองรับมุมที่จุดศูนย์กลางสองมุมที่มีขนาดเท่ากัน',a:0,e:'ยาวเท่ากัน ตามทฤษฎีบทที่ 4'},{t:'มุม A และมุม C ของรูปสี่เหลี่ยมแนบในวงกลม',a:1,e:'เป็นมุมตรงข้ามกัน'}]);
+ }
+ if(key==='s4'){
+  mountCalc('c-tan',[genT5a,genT5b,genT5c]);
+  mountClassify('a-tan',['ถูก','ผิด'],[
+   {t:'เส้นสัมผัสวงกลมตั้งฉากกับรัศมีที่จุดสัมผัส',a:0},{t:'เส้นสัมผัสวงกลมสามารถผ่านจุดศูนย์กลางได้',a:1},{t:'เส้นสัมผัสสองเส้นที่ลากจากจุดภายนอกจุดเดียวกันยาวเท่ากัน',a:0},{t:'เส้นสัมผัสวงกลมตัดวงกลมสองจุด',a:1},{t:'มุมระหว่างคอร์ดกับเส้นสัมผัส เท่ากับมุมในส่วนโค้งที่อยู่ฝั่งตรงข้ามกับคอร์ด',a:0},{t:'วงกลมวงหนึ่งมีเส้นสัมผัสเพียงเส้นเดียว',a:1}]);
+ }
+}
+
+/* ================== กิจกรรมฝึกหาค่า x (สุ่มรูปจากเครื่องสร้างโจทย์) ================== */
+const CALC={};
+function mountCalc(id,gens){
+ const el=document.getElementById(id);if(!el)return;
+ CALC[id]={gens,prob:null,done:false};
+ calcDraw(id);
+}
+function calcDraw(id){
+ const st=CALC[id];if(!st)return;
+ const el=document.getElementById(id);if(!el)return;
+ st.prob=rnd(st.gens)(); st.prob.options=makeOptions(st.prob.ans,st.prob.traps); st.done=false;
+ el.innerHTML=`<div class="qtext" style="font-size:17px">${st.prob.q}</div>
+ <div class="stagebox" style="background:#fff;border:1.5px solid var(--bd);border-radius:16px;padding:8px;display:flex;justify-content:center"><svg viewBox="0 0 380 340" style="max-width:430px;width:100%;height:auto">${st.prob.svg}</svg></div>
+ <div class="opts">${st.prob.options.map((o,i)=>`<button class="opt" id="${id}-o${i}" onclick="calcAnswer('${id}',${i})"><span class="ol">${'กขคง'[i]}</span><span>${o}°</span></button>`).join('')}</div>
+ <div class="fb" id="${id}-fb"></div>
+ <div style="margin-top:10px;display:none" id="${id}-nx"><button class="btn sm" onclick="calcDraw('${id}')">🎲 สุ่มข้อใหม่</button></div>`;
+}
+function calcAnswer(id,i){
+ const st=CALC[id];if(!st||st.done)return;st.done=true;
+ const p=st.prob, ok=p.options[i]===p.ans;
+ p.options.forEach((o,j)=>{const b=document.getElementById(id+'-o'+j);if(!b)return;b.disabled=true;if(o===p.ans)b.classList.add('right');else if(j===i)b.classList.add('wrong');});
+ const fb=document.getElementById(id+'-fb');
+ fb.className='fb '+(ok?'ok':'bad');
+ fb.innerHTML=(ok?'🎉 ถูกต้อง! ':'💪 คำตอบที่ถูกคือ '+p.ans+'° ')+'💡 '+p.why;
+ document.getElementById(id+'-nx').style.display='block';
+}
+
+/* ================== กิจกรรมโต้ตอบ ================== */
+function mountOrder(id,steps){
+ const el=document.getElementById(id);if(!el)return;let next=0;
+ const items=shuffle(steps.map((t,i)=>({t,i})));
+ el.innerHTML=`<div class="ordans" id="${id}-ans"></div><div class="pool">${items.map(o=>`<button class="pbtn" data-i="${o.i}">${o.t}</button>`).join('')}</div><div class="fb" id="${id}-fb"></div><button class="btn sm ghost" id="${id}-rs">↺ เริ่มใหม่</button>`;
+ const fb=document.getElementById(id+'-fb');
+ el.querySelectorAll('.pool .pbtn').forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.i;
+  if(i===next){b.disabled=true;b.classList.add('ok');document.getElementById(id+'-ans').insertAdjacentHTML('beforeend',`<div><span>${next+1}</span>${steps[i]}</div>`);next++;
+   if(next===steps.length){fb.className='fb ok';fb.textContent='🎉 ยอดเยี่ยม! เรียงครบทั้ง 5 ขั้นตอนถูกต้อง';}else{fb.className='fb ok';fb.textContent='✔ ถูกต้อง! ขั้นตอนที่ '+(next+1)+' คืออะไร?';}}
+  else{b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');fb.className='fb bad';fb.textContent='✘ ยังไม่ใช่ขั้นตอนที่ '+(next+1)+' ลองใหม่นะ';}
+ });
+ document.getElementById(id+'-rs').onclick=()=>mountOrder(id,steps);
+}
+function mountMatch(id,pairs){
+ const el=document.getElementById(id);if(!el)return;
+ const L=shuffle(pairs.map((p,i)=>({t:p[0],i}))),R=shuffle(pairs.map((p,i)=>({t:p[1],i})));
+ el.innerHTML=`<div class="match"><div class="col">${L.map(o=>`<button class="pbtn" data-s="L" data-i="${o.i}">${o.t}</button>`).join('')}</div><div class="col">${R.map(o=>`<button class="pbtn" data-s="R" data-i="${o.i}">${o.t}</button>`).join('')}</div></div><div class="fb" id="${id}-fb"></div><button class="btn sm ghost" id="${id}-rs">↺ เริ่มใหม่</button>`;
+ let sel=null,done=0,miss=0;const fb=document.getElementById(id+'-fb');
+ el.querySelectorAll('.pbtn').forEach(b=>b.onclick=()=>{
+  if(b.disabled)return;
+  if(b.dataset.s==='L'){el.querySelectorAll('[data-s=L]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b;return;}
+  if(!sel){fb.className='fb bad';fb.textContent='เลือกคำศัพท์ทางซ้ายก่อนนะ';return;}
+  if(b.dataset.i===sel.dataset.i){[b,sel].forEach(x=>{x.classList.remove('sel');x.classList.add('ok');x.disabled=true;});sel=null;done++;
+   fb.className='fb ok';fb.textContent=done===pairs.length?`🎉 จับคู่ครบทั้ง ${pairs.length} คู่! (ผิด ${miss} ครั้ง)`:`✔ ถูกต้อง! (${done}/${pairs.length})`;}
+  else{miss++;b.classList.add('bad','shake');setTimeout(()=>b.classList.remove('bad','shake'),500);fb.className='fb bad';fb.textContent='✘ ยังไม่ตรงกัน ลองใหม่';}
+ });
+ document.getElementById(id+'-rs').onclick=()=>mountMatch(id,pairs);
+}
+function mountClassify(id,cats,items){
+ const el=document.getElementById(id);if(!el)return;
+ const list=shuffle(items);let ans=0,ok=0;
+ el.innerHTML=list.map((it,k)=>`<div class="cls-row" id="${id}-r${k}"><div class="cls-t">${k+1}. ${fmt(it.t)}</div><div class="cls-btns">${cats.map((c,ci)=>`<button class="pbtn" data-k="${k}" data-c="${ci}">${c}</button>`).join('')}</div><div class="cls-e"></div></div>`).join('')+`<div class="fb" id="${id}-fb"></div>`;
+ el.querySelectorAll('.cls-btns .pbtn').forEach(b=>b.onclick=()=>{
+  const k=+b.dataset.k,c=+b.dataset.c,row=document.getElementById(id+'-r'+k);
+  if(row.dataset.done)return;row.dataset.done=1;ans++;const it=list[k];
+  row.querySelectorAll('.pbtn').forEach(x=>{x.disabled=true;if(+x.dataset.c===it.a)x.classList.add('ok');});
+  if(c===it.a){ok++;row.classList.add('ok');row.querySelector('.cls-e').innerHTML='✔ ถูกต้อง '+(it.e?fmt(it.e):'');}
+  else{b.classList.add('bad');row.classList.add('bad');row.querySelector('.cls-e').innerHTML='✘ คำตอบที่ถูกคือ <b>'+cats[it.a]+'</b> '+(it.e?'· '+fmt(it.e):'');}
+  const fb=document.getElementById(id+'-fb');
+  if(ans===list.length){fb.className='fb '+(ok===list.length?'ok':'');fb.innerHTML=`ได้ ${ok}/${list.length} ข้อ ${ok===list.length?'🎉 เยี่ยมมาก!':'💪 '} <button class="btn sm ghost" onclick='mountClassify("${id}",${JSON.stringify(cats)},${JSON.stringify(items).replace(/'/g,"&#39;")})'>↺ ลองอีกครั้ง</button>`;}
+  else{fb.className='fb';fb.textContent=`ทำแล้ว ${ans}/${list.length} · ถูก ${ok} ข้อ`;}
+ });
+}
+
+/* ================== สถานะนักเรียน ================== */
+function passed(s,k){return !!(s&&s.quizzes&&s.quizzes[k]&&s.quizzes[k].passed);}
+function unlocked(s,i){return i===0||passed(s,SECTIONS[i-1].key);}
+function allSec(s){return SECTIONS.every(x=>passed(s,x.key));}
+function progressPct(s){const n=SECTIONS.filter(x=>passed(s,x.key)).length+(passed(s,'final')?1:0);return Math.round(n/5*100);}
+
+function formatX(str){
+  const xbarHtml = '<span style="display:inline-block;position:relative;"><span style="position:absolute;top:-8px;left:0;right:0;text-align:center;font-size:14px;line-height:1;">¯</span>x</span>';
+  return String(str).replace(/\{xbar\}/g, xbarHtml);
+}
+function fmt(s){return formatX(s);}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function thDate(iso){return new Date(iso).toLocaleDateString('th-TH',{day:'numeric',month:'long',year:'numeric'});}
+function thDT(iso){return new Date(iso).toLocaleString('th-TH',{day:'numeric',month:'short',year:'2-digit',hour:'2-digit',minute:'2-digit'});}
+
+function header(){
+  const s=me();const p=progressPct(s);
+  const st=DB.settings;
+  return `<header class="topbar no-print"><div class="brand" onclick="goHome()">⭕ ${st.subjectCode} ${st.subjectName}</div><div class="tb-prog"><div class="pbar"><i style="width:${p}%"></i></div><small><b>${p}%</b></small></div><div class="tb-user">👤 ${esc(s.name)} <button class="btn sm ghost" onclick="logout()">ออกจากระบบ</button></div></header>`;
+}
+
+/* ================== หน้าเข้าสู่ระบบ ================== */
+function renderLogin(){
+  const st=DB.settings;
+  view(`<div class="login-wrap"><div class="card login-card"><div class="logo">⭕</div>
+  <h1 style="margin:.2em 0 0">${st.subjectName}</h1><p class="mut" style="margin:0">(${st.subjectCode}) · ${st.gradeLevel}<br>${st.unitName}</p>
+  <form onsubmit="doLogin();return false;" style="margin-top:10px">
+  <label>ชื่อ-นามสกุล *</label><input id="inName" placeholder="เช่น ด.ญ.สมใจ ใฝ่เรียน" autocomplete="off">
+  <div class="row"><div><label>ชั้น</label><input id="inRoom" placeholder="ม.6/1"></div><div><label>เลขที่</label><input id="inNo" type="number" min="1" placeholder="1"></div></div>
+  <button class="btn" style="width:100%;margin:18px 0 0;padding:13px" type="submit">🚀 เข้าสู่บทเรียน</button></form>
+  <p class="mut" style="font-size:13.5px;margin:12px 0 0">ใช้ชื่อ ชั้น และเลขที่เดิมเพื่อเรียนต่อจากครั้งก่อน</p>
+  <button class="linkbtn" onclick="openAdminLogin()">🔐 สำหรับผู้ดูแลระบบ</button></div></div>`);
+  setTimeout(()=>document.getElementById('inName').focus(),50);
+}
+
+function doLogin(){
+ const name=document.getElementById('inName').value.trim().replace(/\s+/g,' ');
+ const room=document.getElementById('inRoom').value.trim(),no=document.getElementById('inNo').value.trim();
+ if(name.length<2){toast('กรุณากรอกชื่อ-นามสกุล');return;}
+ const id=(name+'|'+room+'|'+no).toLowerCase();
+ const now=new Date().toISOString();
+ if(DB.students[id]){toast('ยินดีต้อนรับกลับ '+name+' 👋');DB.students[id].updated=now;}
+ else{DB.students[id]={id,name,room,no,created:now,updated:now,quizzes:{}};toast('ยินดีต้อนรับ '+name+' 🎉');}
+ if(THEME_PICKED){DB.students[id].theme=THEME_PICKED;THEME_PICKED=null;}saveDB();ME=id;sessionStorage.setItem('circle3_me',id);goHome();
+}
+function logout(){if(!confirm('ต้องการออกจากระบบหรือไม่?'))return;ME=null;sessionStorage.removeItem('circle3_me');renderLogin();}
+
+/* ================== หน้าหลัก ================== */
+function goHome(){
+ const s=me();if(!s){renderLogin();return;}
+ const st=DB.settings;
+ const cards=SECTIONS.map((x,i)=>{const un=unlocked(s,i),ps=passed(s,x.key),q=s.quizzes[x.key];
+  const chip=ps?`<span class="chip pass">✅ ผ่านแล้ว · ${q.best}/5</span>`:un?`<span class="chip go">📖 พร้อมเรียน</span>`:`<span class="chip lock">🔒 ผ่านส่วนที่ ${i} ก่อน</span>`;
+  return `<div class="scard ${un?'':'locked'}" style="--c:${x.color}"><div class="ic">${x.icon}</div><small class="mut">ส่วนที่ ${x.no}</small><h3 style="margin:0">${x.title}</h3><p>${x.desc}</p>${chip}<button class="btn sm" ${un?'':'disabled'} onclick="openLesson(${i})">${ps?'ทบทวน':'เข้าเรียน'} →</button></div>`;}).join('');
+ const all=allSec(s),fp=passed(s,'final'),fq=s.quizzes.final;
+ view(header()+`<main class="wrap">
+ <div class="hero"><h2>สวัสดี ${esc(s.name)} 👋</h2><p>ยินดีต้อนรับสู่บทเรียน <b>${st.subjectCode} ${st.subjectName} (${st.gradeLevel})<br>${st.unitName}</b></p>
+ <p style="font-size:15px">📌 เรียนทีละส่วน แล้วทำแบบทดสอบย่อยส่วนละ 5 ข้อ (ผ่าน ${st.passPct}%) เพื่อปลดล็อกส่วนถัดไป เมื่อผ่านครบ 4 ส่วนจะได้รับการ์ดสรุป จากนั้นทำแบบทดสอบประมวลความรู้ 10 ข้อ (ผ่าน ${st.finalPassPct}%) เพื่อรับเกียรติบัตร<br>🎲 ข้อสอบสุ่มจากคลังทุกครั้ง แต่ละคนจึงได้ข้อสอบไม่เหมือนกัน</p></div>
+ <div class="grid">${cards}
+ <div class="scard ${all?'':'locked'}" style="--c:#8b5cf6"><div class="ic">🗒️</div><small class="mut">เรียนครบ 4 ส่วน</small><h3 style="margin:0">การ์ดสรุปบทเรียน</h3><p>สรุปสาระสำคัญทั้งหน่วยและคะแนนของคุณ</p>${all?'<span class="chip pass">✅ ปลดล็อกแล้ว</span>':'<span class="chip lock">🔒 ผ่านครบ 4 ส่วนก่อน</span>'}<button class="btn sm" ${all?'':'disabled'} onclick="renderSummary()">ดูการ์ดสรุป →</button></div>
+ <div class="scard ${all?'':'locked'}" style="--c:#ef4444"><div class="ic">🏁</div><small class="mut">ทุกส่วน · 10 ข้อ</small><h3 style="margin:0">แบบทดสอบประมวลความรู้</h3><p>วัดความรู้ความเข้าใจจากทุกส่วน</p>${fp?`<span class="chip pass">✅ ผ่าน · ${fq.best}/10</span>`:all?'<span class="chip go">📝 พร้อมสอบ</span>':'<span class="chip lock">🔒 ผ่านครบ 4 ส่วนก่อน</span>'}<button class="btn sm" ${all?'':'disabled'} onclick="startQuiz('final')">เริ่มทำแบบทดสอบ →</button></div>
+ <div class="scard ${fp?'':'locked'}" style="--c:#d4a017"><div class="ic">🏅</div><small class="mut">เมื่อผ่านแบบทดสอบประมวลความรู้</small><h3 style="margin:0">เกียรติบัตร</h3><p>รับรองโดย ${st.teacherName} (${st.teacherPos})</p>${fp?'<span class="chip pass">🎉 พร้อมรับ</span>':'<span class="chip lock">🔒 ยังไม่ผ่าน</span>'}<button class="btn sm gold" ${fp?'':'disabled'} onclick="renderCert(ME)">รับเกียรติบัตร →</button></div>
+ </div></main>`);
+}
+
+/* ================== หน้าบทเรียน ================== */
+function openLesson(i){
+ const s=me(),x=SECTIONS[i];if(!unlocked(s,i)){toast('ส่วนนี้ยังล็อกอยู่');return;}
+ const tabs=SECTIONS.map((y,j)=>`<button class="${j===i?'on':''}" ${unlocked(s,j)?'':'disabled'} onclick="openLesson(${j})">${y.icon} ส่วนที่ ${y.no}</button>`).join('');
+ view(header()+`<main class="wrap"><div class="tabs no-print"><button onclick="goHome()">🏠 หน้าหลัก</button>${tabs}</div>
+ <div class="lesson-hero" style="--c:linear-gradient(135deg,${x.color},#1e1b4b)"><div class="lh-ic">${x.icon}</div><div><small>ส่วนที่ ${x.no}</small><h2>${x.title}</h2><p style="margin:0;opacity:.9">${x.desc}</p></div></div>
+ ${LESSONS[x.key]()}
+ <section class="summary-box"><h3>📌 สรุปสาระสำคัญ ส่วนที่ ${x.no}</h3><ul>${SUMMARY[x.key].map(t=>`<li>${t}</li>`).join('')}</ul></section>
+ <div class="card center" style="margin-top:18px"><h3>📝 พร้อมทดสอบแล้วหรือยัง?</h3><p class="mut">แบบทดสอบย่อย 5 ข้อ สุ่มจากคลัง ${BANK[x.key].length} ข้อ · เกณฑ์ผ่าน ${DB.settings.passPct}%</p>
+ <button class="btn" onclick="startQuiz('${x.key}')">เริ่มทำแบบทดสอบย่อย →</button></div></main>`);
+ initActivities(x.key);
+}
+
+const CX=190, CY=168, R=128;
+const rad=d=>d*Math.PI/180;
+const pt=(deg,r=R,cx=CX,cy=CY)=>[cx+r*Math.cos(rad(deg)), cy+r*Math.sin(rad(deg))];
+const f1=n=>Math.round(n*10)/10;
+function angAt(P,A,B){ // มุม APB องศา จากพิกัดจริง
+  const v1=[A[0]-P[0],A[1]-P[1]], v2=[B[0]-P[0],B[1]-P[1]];
+  const dot=v1[0]*v2[0]+v1[1]*v2[1], m1=Math.hypot(...v1), m2=Math.hypot(...v2);
+  return Math.acos(Math.max(-1,Math.min(1,dot/(m1*m2))))*180/Math.PI;
+}
+function dirDeg(from,to){return Math.atan2(to[1]-from[1],to[0]-from[0])*180/Math.PI;}
+function midDir(d1,d2){return Math.atan2(Math.sin(rad(d1))+Math.sin(rad(d2)),Math.cos(rad(d1))+Math.cos(rad(d2)))*180/Math.PI;}
+function arcC(cx,cy,r,a1,a2,long=false){
+  const p1=[cx+r*Math.cos(rad(a1)),cy+r*Math.sin(rad(a1))], p2=[cx+r*Math.cos(rad(a2)),cy+r*Math.sin(rad(a2))];
+  let span=((a2-a1)%360+360)%360;
+  if(!long&&span>180){return `M ${f1(p1[0])} ${f1(p1[1])} A ${r} ${r} 0 0 0 ${f1(p2[0])} ${f1(p2[1])}`;}
+  return `M ${f1(p1[0])} ${f1(p1[1])} A ${r} ${r} 0 ${span>180?1:0} 1 ${f1(p2[0])} ${f1(p2[1])}`;
+}
+function rightMark(V,d1,d2,s=14){
+  const u1=[Math.cos(rad(d1)),Math.sin(rad(d1))], u2=[Math.cos(rad(d2)),Math.sin(rad(d2))];
+  const p1=[V[0]+u1[0]*s,V[1]+u1[1]*s], p2=[p1[0]+u2[0]*s,p1[1]+u2[1]*s], p3=[V[0]+u2[0]*s,V[1]+u2[1]*s];
+  return `<polyline points="${f1(p1[0])},${f1(p1[1])} ${f1(p2[0])},${f1(p2[1])} ${f1(p3[0])},${f1(p3[1])}" fill="none" stroke="#ff4b4b" stroke-width="2.4"/>`;
+}
+const L=(p,t,size=16,fill="#3c3c3c",dx=0,dy=0)=>`<text x="${f1(p[0]+dx)}" y="${f1(p[1]+dy)}" font-size="${size}" fill="${fill}" text-anchor="middle" font-weight="800">${t}</text>`;
+const dot=(p,c="#3c3c3c",r=4.5)=>`<circle cx="${f1(p[0])}" cy="${f1(p[1])}" r="${r}" fill="${c}"/>`;
+const seg=(a,b,c="#64748b",w=2.6,dash="")=>`<line x1="${f1(a[0])}" y1="${f1(a[1])}" x2="${f1(b[0])}" y2="${f1(b[1])}" stroke="${c}" stroke-width="${w}" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
+const baseCircle=(fill="#f7fbff")=>`<circle cx="${CX}" cy="${CY}" r="${R}" fill="${fill}" stroke="#334155" stroke-width="2.6"/>`;
+const O=[CX,CY];
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const ri=(min,max)=>min+Math.floor(Math.random()*(max-min+1));
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function makeOptions(ans,traps){
+  const set=new Set([ans]);
+  const cand=shuffle([...(traps||[]),ans+10,ans-10,ans+20,ans-20,ans+5,ans-5,180-ans,ans*2,Math.round(ans/2),90-ans,360-ans]);
+  for(const c of cand){if(set.size>=4)break;if(Number.isInteger(c)&&c>0&&c<360&&!set.has(c))set.add(c);}
+  let k=15;while(set.size<4){if(!set.has(ans+k))set.add(ans+k);k+=15;}
+  return shuffle([...set]);
+}
+
+/* --- ทบ.1: มุมในครึ่งวงกลม = 90° --- */
+function genT1(){
+  const a=rnd([25,30,35,40,50,55,60,65]);
+  const upper=Math.random()<0.5;
+  const thC=upper?360-2*a:2*a;
+  const A=pt(180),B=pt(0),C=pt(thC);
+  const giveAtA=Math.random()<0.5;
+  const given=giveAtA?a:90-a, ans=giveAtA?90-a:a;
+  const askedV=giveAtA?B:A, givenV=giveAtA?A:B;
+  let s=baseCircle("#fff7ed")+seg(A,B,"#94a3b8",2.4)+seg(A,C)+seg(B,C);
+  // มุมที่ให้มา (ที่ givenV ระหว่างเส้นไปอีกปลายเส้นผ่านศูนย์กลาง กับคอร์ดไป C)
+  const gOther=givenV===A?B:A;
+  s+=`<path d="${arcC(givenV[0],givenV[1],27,dirDeg(givenV,gOther),dirDeg(givenV,C))}" fill="none" stroke="#f59e0b" stroke-width="2.6"/>`;
+  const gm=[givenV[0]+42*Math.cos(rad(midDir(dirDeg(givenV,gOther),dirDeg(givenV,C)))), givenV[1]+42*Math.sin(rad(midDir(dirDeg(givenV,gOther),dirDeg(givenV,C))))];
+  s+=L(gm,given+"°",16,"#b45309");
+  // มุม x ที่ถาม
+  const aOther=askedV===A?B:A;
+  s+=`<path d="${arcC(askedV[0],askedV[1],27,dirDeg(askedV,aOther),dirDeg(askedV,C))}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+  const am=[askedV[0]+44*Math.cos(rad(midDir(dirDeg(askedV,aOther),dirDeg(askedV,C)))), askedV[1]+44*Math.sin(rad(midDir(dirDeg(askedV,aOther),dirDeg(askedV,C))))];
+  s+=L(am,"x",19,"#ff4b4b");
+  s+=rightMark(C,dirDeg(C,A),dirDeg(C,B),15);
+  s+=dot(O)+dot(A)+dot(B)+dot(C);
+  s+=L(O,"O",15,"#3c3c3c",0,22)+L(A,"A",16,"#3c3c3c",-14,4)+L(B,"B",16,"#3c3c3c",14,4)+L(C,"C",16,"#3c3c3c",0,upper?-12:22);
+  return {svg:s,q:`จากรูป AB เป็นเส้นผ่านศูนย์กลางของวงกลม O จงหาค่า <b>x</b>`,ans,
+    why:`มุมในครึ่งวงกลม ∠ACB = 90° (ทฤษฎีบทที่ 1) และมุมในสามเหลี่ยมรวมกันได้ 180° ดังนั้น x = 180 − 90 − ${given} = ${ans}°`,
+    traps:[given,90,180-given],check:angAt(askedV,aOther,C)};
+}
+
+/* --- ทบ.2: มุมที่จุดศูนย์กลาง = 2 เท่าของมุมในส่วนโค้ง --- */
+function genT2(){
+  const mode=rnd(['c2i','i2c','reflex']);
+  if(mode==='reflex'){
+    const c=rnd([100,120,140]), reflex=360-c, ans=reflex/2;
+    const A=pt(270-c/2),B=pt(270+c/2),C=pt(270+ri(-18,18));
+    let s=baseCircle("#fdf4ff")+seg(O,A,"#94a3b8")+seg(O,B,"#94a3b8")+seg(C,A)+seg(C,B);
+    s+=`<path d="${arcC(CX,CY,42,dirDeg(O,A),dirDeg(O,B),true)}" fill="none" stroke="#f59e0b" stroke-width="2.8"/>`;
+    s+=L([CX,CY+86],reflex+"°",16,"#b45309");
+    s+=`<path d="${arcC(C[0],C[1],24,dirDeg(C,A),dirDeg(C,B))}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+    s+=L([C[0],C[1]+34],"x",19,"#ff4b4b");
+    s+=dot(O)+dot(A)+dot(B)+dot(C)+L(O,"O",15,"#3c3c3c",-16,16)+L(A,"A",16,"#3c3c3c",-12,-8)+L(B,"B",16,"#3c3c3c",12,-8)+L(C,"C",16,"#3c3c3c",0,-12);
+    return {svg:s,q:`จากรูป มุมกลับที่จุดศูนย์กลางเท่ากับ ${reflex}° จงหาค่า <b>x</b>`,ans,
+      why:`มุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกัน มีขนาดเป็นครึ่งหนึ่งของมุมที่จุดศูนย์กลาง (ทฤษฎีบทที่ 2) ดังนั้น x = ${reflex} ÷ 2 = ${ans}°`,
+      traps:[c,reflex-90,180-ans],check:angAt(C,A,B)};
+  }
+  const c=rnd([70,80,90,100,110,120,130,140,150,160]), ins=c/2;
+  const A=pt(270-c/2),B=pt(270+c/2),C=pt(90+ri(-35,35));
+  const giveCentral=mode==='c2i';
+  const given=giveCentral?c:ins, ans=giveCentral?ins:c;
+  let s=baseCircle("#fdf4ff")+seg(O,A,"#94a3b8")+seg(O,B,"#94a3b8")+seg(C,A)+seg(C,B);
+  s+=`<path d="${arcC(CX,CY,40,dirDeg(O,A),dirDeg(O,B))}" fill="none" stroke="${giveCentral?'#f59e0b':'#ff4b4b'}" stroke-width="2.8"/>`;
+  s+=L([CX,CY-58],giveCentral?given+"°":"x",giveCentral?16:19,giveCentral?"#b45309":"#ff4b4b");
+  s+=`<path d="${arcC(C[0],C[1],25,dirDeg(C,A),dirDeg(C,B))}" fill="none" stroke="${giveCentral?'#ff4b4b':'#f59e0b'}" stroke-width="2.8"/>`;
+  const cm=[C[0]+40*Math.cos(rad((dirDeg(C,A)+dirDeg(C,B))/2+180)),C[1]+40*Math.sin(rad((dirDeg(C,A)+dirDeg(C,B))/2+180))];
+  s+=L([C[0],C[1]-34],giveCentral?"x":given+"°",giveCentral?19:16,giveCentral?"#ff4b4b":"#b45309");
+  s+=dot(O)+dot(A)+dot(B)+dot(C)+L(O,"O",15,"#3c3c3c",0,24)+L(A,"A",16,"#3c3c3c",-12,-8)+L(B,"B",16,"#3c3c3c",12,-8)+L(C,"C",16,"#3c3c3c",0,24);
+  return {svg:s,q:giveCentral?`จากรูป มุมที่จุดศูนย์กลางเท่ากับ ${c}° จงหาค่า <b>x</b>`:`จากรูป มุมในส่วนโค้งของวงกลมเท่ากับ ${ins}° จงหาขนาดของมุมที่จุดศูนย์กลาง (<b>x</b>)`,ans,
+    why:giveCentral?`มุมที่จุดศูนย์กลางเป็น 2 เท่าของมุมในส่วนโค้งที่รองรับด้วยส่วนโค้งเดียวกัน (ทฤษฎีบทที่ 2) ดังนั้น x = ${c} ÷ 2 = ${ans}°`:`มุมที่จุดศูนย์กลางเป็น 2 เท่าของมุมในส่วนโค้ง (ทฤษฎีบทที่ 2) ดังนั้น x = 2 × ${ins} = ${ans}°`,
+    traps:[given,ans+20,180-ans],check:giveCentral?angAt(C,A,B):angAt(O,A,B)};
+}
+
+/* --- ทบ.3: มุมในส่วนโค้งบนส่วนโค้งเดียวกันเท่ากัน --- */
+function genT3(){
+  const split=Math.random()<0.45;
+  const m=split?rnd([80,120,160]):rnd([80,100,120,140,160]);
+  const g=m/2;
+  const A=pt(270-m/2),B=pt(270+m/2),C=pt(90-ri(12,38)),D=pt(90+ri(12,38));
+  let s=baseCircle("#f0fdf4")+seg(C,A)+seg(C,B)+seg(D,A)+seg(D,B);
+  s+=`<path d="${arcC(C[0],C[1],24,dirDeg(C,A),dirDeg(C,B))}" fill="none" stroke="#f59e0b" stroke-width="2.8"/>`;
+  s+=L([C[0],C[1]-32],g+"°",16,"#b45309");
+  let ans,why,check,traps;
+  if(split){
+    const M=pt(270), h=m/4;
+    s+=seg(D,M,"#64748b",2.4);
+    s+=`<path d="${arcC(D[0],D[1],30,dirDeg(D,A),dirDeg(D,M))}" fill="none" stroke="#0ea5e9" stroke-width="2.6"/>`;
+    s+=L([D[0]-6,D[1]-40],h+"°",15,"#0284c7");
+    s+=`<path d="${arcC(D[0],D[1],19,dirDeg(D,M),dirDeg(D,B))}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+    s+=L([D[0]+34,D[1]-16],"x",19,"#ff4b4b");
+    s+=dot(M)+L(M,"M",15,"#3c3c3c",14,-6);
+    ans=g-h; check=angAt(D,M,B); traps=[g,h,g+h];
+    why=`มุมที่จุด D และจุด C รองรับด้วยส่วนโค้ง AB เดียวกัน จึงเท่ากัน (ทฤษฎีบทที่ 3) มุมที่ D จึงเท่ากับ ${g}° หักมุมย่อย ${h}° ออก จะได้ x = ${g} − ${h} = ${ans}°`;
+  }else{
+    s+=`<path d="${arcC(D[0],D[1],24,dirDeg(D,A),dirDeg(D,B))}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+    s+=L([D[0],D[1]-32],"x",19,"#ff4b4b");
+    ans=g; check=angAt(D,A,B); traps=[180-g,g/2,g+20];
+    why=`มุมทั้งสองรองรับด้วยส่วนโค้ง AB เดียวกัน มุมในส่วนโค้งของวงกลมที่รองรับด้วยส่วนโค้งเดียวกันจะมีขนาดเท่ากัน (ทฤษฎีบทที่ 3) ดังนั้น x = ${ans}°`;
+  }
+  s+=dot(O)+dot(A)+dot(B)+dot(C)+dot(D);
+  s+=L(O,"O",15,"#3c3c3c",0,24)+L(A,"A",16,"#3c3c3c",-12,-8)+L(B,"B",16,"#3c3c3c",12,-8)+L(C,"C",16,"#3c3c3c",-14,10)+L(D,"D",16,"#3c3c3c",14,10);
+  return {svg:s,q:`จากรูป จุด C และ D อยู่บนวงกลมเดียวกัน จงหาค่า <b>x</b>`,ans,why,traps,check};
+}
+
+/* --- ทบ.8: สี่เหลี่ยมแนบในวงกลม มุมตรงข้ามรวม 180° --- */
+function genT8(){
+  let p,q,r,sv,tries=0;
+  do{p=rnd([40,60,80,100,120]);q=rnd([40,60,80,100,120]);r=rnd([40,60,80,100,120]);sv=360-p-q-r;tries++;}while((sv<40||sv>140)&&tries<60);
+  if(sv<40||sv>140){p=80;q=100;r=80;sv=100;}
+  const A=pt(180),B=pt(180+p),C=pt(180+p+q),D=pt(180+p+q+r);
+  const angA=(q+r)/2, angC=(sv+p)/2;
+  const algebra=Math.random()<0.4;
+  let s=baseCircle("#fffbeb")+seg(A,B)+seg(B,C)+seg(C,D)+seg(D,A);
+  let ans,why,check;
+  if(algebra){
+    ans=angA/2;
+    s+=L([A[0]+34,A[1]-6],"2x",17,"#ff4b4b");
+    s+=`<path d="${arcC(C[0],C[1],22,dirDeg(C,B),dirDeg(C,D))}" fill="none" stroke="#f59e0b" stroke-width="2.6"/>`;
+    s+=L([C[0]-36,C[1]+4],angC+"°",16,"#b45309");
+    why=`มุมตรงข้ามของรูปสี่เหลี่ยมแนบในวงกลมรวมกันได้ 180° (ทฤษฎีบทที่ 8) ดังนั้น 2x + ${angC} = 180 → 2x = ${180-angC} → x = ${ans}°`;
+    check=angAt(A,B,D)/2;
+    s+=`<path d="${arcC(A[0],A[1],22,dirDeg(A,B),dirDeg(A,D))}" fill="none" stroke="#ff4b4b" stroke-width="2.6"/>`;
+  }else{
+    ans=angC;
+    s+=`<path d="${arcC(A[0],A[1],22,dirDeg(A,B),dirDeg(A,D))}" fill="none" stroke="#f59e0b" stroke-width="2.6"/>`;
+    s+=L([A[0]+36,A[1]-4],angA+"°",16,"#b45309");
+    s+=`<path d="${arcC(C[0],C[1],22,dirDeg(C,B),dirDeg(C,D))}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+    s+=L([C[0]-34,C[1]+4],"x",19,"#ff4b4b");
+    why=`ผลบวกของมุมตรงข้ามของรูปสี่เหลี่ยมแนบในวงกลมเท่ากับ 180° (ทฤษฎีบทที่ 8) ดังนั้น x = 180 − ${angA} = ${ans}°`;
+    check=angAt(C,B,D);
+  }
+  s+=dot(O)+dot(A)+dot(B)+dot(C)+dot(D);
+  s+=L(O,"O",15,"#3c3c3c",0,24)+L(A,"A",16,"#3c3c3c",-14,0)+L(B,"B",16,"#3c3c3c",0,24)+L(C,"C",16,"#3c3c3c",14,0)+L(D,"D",16,"#3c3c3c",0,-12);
+  return {svg:s,q:`จากรูป ABCD เป็นรูปสี่เหลี่ยมแนบในวงกลม จงหาค่า <b>x</b>`,ans,why,traps:[angA,180-angA+20,90],check};
+}
+
+/* --- เส้นสัมผัส ก: ตั้งฉากกับรัศมี --- */
+function genT5a(){
+  const Rt=105, cx=170, cy=168;
+  const g=rnd([30,35,40,45,50,55,60]);
+  const T=[cx,cy-Rt];
+  const P=[cx+Rt*Math.tan(rad(g)), cy-Rt];
+  const giveAtO=Math.random()<0.5;
+  const given=giveAtO?g:90-g, ans=giveAtO?90-g:g;
+  let s=`<circle cx="${cx}" cy="${cy}" r="${Rt}" fill="#fff1f2" stroke="#334155" stroke-width="2.6"/>`;
+  s+=`<line x1="18" y1="${cy-Rt}" x2="372" y2="${cy-Rt}" stroke="#22c55e" stroke-width="3"/>`;
+  s+=seg([cx,cy],T,"#64748b")+seg([cx,cy],P)+seg(T,P,"#64748b",2.2);
+  s+=rightMark(T,270,180,13);
+  const oDir1=270, oDir2=dirDeg([cx,cy],P);
+  if(giveAtO){
+    s+=`<path d="${arcC(cx,cy,36,oDir1,oDir2)}" fill="none" stroke="#f59e0b" stroke-width="2.6"/>`;
+    s+=L([cx+52,cy-64],given+"°",16,"#b45309");
+    s+=`<path d="${arcC(P[0],P[1],24,dirDeg(P,T),dirDeg(P,[cx,cy]))}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+    s+=L([P[0]-26,P[1]+24],"x",19,"#ff4b4b");
+  }else{
+    s+=`<path d="${arcC(cx,cy,36,oDir1,oDir2)}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+    s+=L([cx+52,cy-64],"x",19,"#ff4b4b");
+    s+=`<path d="${arcC(P[0],P[1],24,dirDeg(P,T),dirDeg(P,[cx,cy]))}" fill="none" stroke="#f59e0b" stroke-width="2.6"/>`;
+    s+=L([P[0]-28,P[1]+24],given+"°",16,"#b45309");
+  }
+  s+=dot([cx,cy])+dot(T)+dot(P);
+  s+=L([cx,cy],"O",15,"#3c3c3c",-14,18)+L(T,"T",16,"#3c3c3c",-14,-6)+L(P,"P",16,"#3c3c3c",12,-6);
+  s+=`<text x="30" y="${cy-Rt-10}" font-size="13.5" fill="#16a34a" font-weight="800">เส้นสัมผัส</text>`;
+  return {svg:s,q:`จากรูป เส้นตรงสัมผัสวงกลมที่จุด T และ O เป็นจุดศูนย์กลาง จงหาค่า <b>x</b>`,ans,
+    why:`เส้นสัมผัสจะตั้งฉากกับรัศมีที่จุดสัมผัส มุมที่ T จึงเป็นมุมฉาก สามเหลี่ยม OTP มีมุมรวม 180° ดังนั้น x = 180 − 90 − ${giveAtO?g:90-g} = ${ans}°`,
+    traps:[given,90,180-given],check:giveAtO?angAt(P,T,[cx,cy]):angAt([cx,cy],T,P)};
+}
+
+/* --- เส้นสัมผัส ข: มุมคอร์ด–เส้นสัมผัส = มุมในส่วนโค้งฝั่งตรงข้าม --- */
+function genT5b(){
+  const h=rnd([30,35,40,45,50,55,60,65,70]);
+  const A=pt(180),B=pt(180+2*h),C=pt(90+ri(-30,30));
+  const giveAtA=Math.random()<0.5;
+  let s=baseCircle("#f0f9ff");
+  s+=`<line x1="${f1(A[0])}" y1="14" x2="${f1(A[0])}" y2="322" stroke="#22c55e" stroke-width="3"/>`;
+  s+=seg(A,B)+seg(A,C,"#94a3b8",2.2)+seg(B,C);
+  const dChord=dirDeg(A,B);
+  if(giveAtA){
+    s+=`<path d="${arcC(A[0],A[1],30,270,dChord)}" fill="none" stroke="#f59e0b" stroke-width="2.6"/>`;
+    s+=L([A[0]-24,A[1]-44],h+"°",16,"#b45309");
+    s+=`<path d="${arcC(C[0],C[1],24,dirDeg(C,A),dirDeg(C,B))}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+    s+=L([C[0],C[1]-32],"x",19,"#ff4b4b");
+  }else{
+    s+=`<path d="${arcC(A[0],A[1],30,270,dChord)}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+    s+=L([A[0]-24,A[1]-44],"x",19,"#ff4b4b");
+    s+=`<path d="${arcC(C[0],C[1],24,dirDeg(C,A),dirDeg(C,B))}" fill="none" stroke="#f59e0b" stroke-width="2.6"/>`;
+    s+=L([C[0],C[1]-32],h+"°",16,"#b45309");
+  }
+  s+=dot(O)+dot(A)+dot(B)+dot(C);
+  s+=L(O,"O",15,"#3c3c3c",0,24)+L(A,"A",16,"#3c3c3c",-14,16)+L(B,"B",16,"#3c3c3c",10,-10)+L(C,"C",16,"#3c3c3c",12,8);
+  s+=L([A[0],318],"เส้นสัมผัส",13.5,"#16a34a",46,14);
+  const angTan=Math.acos(Math.max(-1,Math.min(1,((B[0]-A[0])*0+(B[1]-A[1])*(-1))/(Math.hypot(B[0]-A[0],B[1]-A[1])))))*180/Math.PI;
+  return {svg:s,q:`จากรูป เส้นตรงสัมผัสวงกลมที่จุด A และ AB เป็นคอร์ด จงหาค่า <b>x</b>`,ans:h,
+    why:`มุมที่เกิดจากคอร์ดและเส้นสัมผัสที่จุดสัมผัส จะมีขนาดเท่ากับมุมในส่วนโค้งของวงกลมที่อยู่ฝั่งตรงข้ามกับคอร์ดนั้น ดังนั้น x = ${h}°`,
+    traps:[2*h,180-h,90],check:giveAtA?angAt(C,A,B):angTan};
+}
+
+/* --- เส้นสัมผัส ค: เส้นสัมผัส 2 เส้นจากจุดภายนอก --- */
+function genT5c(){
+  const Rt=100, cx=158, cy=168;
+  const beta=rnd([40,50,60]);
+  const A=pt(-beta,Rt,cx,cy),B=pt(beta,Rt,cx,cy);
+  const d=Rt/Math.cos(rad(beta)), P=[cx+d,cy];
+  const central=2*beta, atP=180-central;
+  const giveCentral=Math.random()<0.5;
+  const given=giveCentral?central:atP, ans=giveCentral?atP:central;
+  let s=`<circle cx="${cx}" cy="${cy}" r="${Rt}" fill="#fdf4ff" stroke="#334155" stroke-width="2.6"/>`;
+  s+=seg([cx,cy],A,"#64748b")+seg([cx,cy],B,"#64748b")+seg(P,A)+seg(P,B);
+  s+=rightMark(A,dirDeg(A,[cx,cy]),dirDeg(A,P),12)+rightMark(B,dirDeg(B,[cx,cy]),dirDeg(B,P),12);
+  if(giveCentral){
+    s+=`<path d="${arcC(cx,cy,34,dirDeg([cx,cy],A),dirDeg([cx,cy],B))}" fill="none" stroke="#f59e0b" stroke-width="2.6"/>`;
+    s+=L([cx+52,cy],given+"°",16,"#b45309");
+    s+=`<path d="${arcC(P[0],P[1],22,dirDeg(P,A),dirDeg(P,B))}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+    s+=L([P[0]-30,P[1]-8],"x",19,"#ff4b4b");
+  }else{
+    s+=`<path d="${arcC(cx,cy,34,dirDeg([cx,cy],A),dirDeg([cx,cy],B))}" fill="none" stroke="#ff4b4b" stroke-width="2.8"/>`;
+    s+=L([cx+52,cy],"x",19,"#ff4b4b");
+    s+=`<path d="${arcC(P[0],P[1],22,dirDeg(P,A),dirDeg(P,B))}" fill="none" stroke="#f59e0b" stroke-width="2.6"/>`;
+    s+=L([P[0]-32,P[1]-8],given+"°",16,"#b45309");
+  }
+  s+=dot([cx,cy])+dot(A)+dot(B)+dot(P);
+  s+=L([cx,cy],"O",15,"#3c3c3c",-16,4)+L(A,"A",16,"#3c3c3c",-6,-10)+L(B,"B",16,"#3c3c3c",-6,20)+L(P,"P",16,"#3c3c3c",10,4);
+  return {svg:s,q:`จากรูป PA และ PB สัมผัสวงกลมที่จุด A และ B ตามลำดับ จงหาค่า <b>x</b>`,ans,
+    why:`รัศมีตั้งฉากกับเส้นสัมผัสที่จุดสัมผัส สี่เหลี่ยม OAPB มีมุมฉาก 2 มุม มุมภายในรวม 360° ดังนั้น x = 360 − 90 − 90 − ${given} = ${ans}°`,
+    traps:[given,180-given,90],check:giveCentral?angAt(P,A,B):angAt([cx,cy],A,B)};
+}
+
+/* ================== ระบบแบบทดสอบ ================== */
+function startQuiz(key){
+ const s=me();const isF=key==='final';
+ if(isF&&!allSec(s)){toast('ต้องผ่านครบ 4 ส่วนก่อน');return;}
+ const bank=isF?FINAL_BANK:BANK[key],n=isF?10:5;
+ const idx=shuffle(bank.map((_,i)=>i)).slice(0,n);
+ QUIZ={key,n,items:idx.map(i=>({q:bank[i].q,e:bank[i].e,opts:shuffle(bank[i].c.map((t,j)=>({t,ok:j===0})))})),ans:Array(n).fill(null),
+  code:key.toUpperCase()+'-'+idx.map(i=>i.toString(36)).join('').toUpperCase()+'-'+Math.random().toString(36).slice(2,5).toUpperCase()};
+ const sec=isF?null:SECTIONS.find(x=>x.key===key);
+ const title=isF?'แบบทดสอบประมวลความรู้ความเข้าใจ':`แบบทดสอบย่อย ส่วนที่ ${sec.no}: ${sec.title}`;
+ const thr=isF?DB.settings.finalPassPct:DB.settings.passPct;
+ view(header()+`<main class="wrap"><div class="card quiz-head"><div><small>📝 ${isF?'ครอบคลุมทุกส่วน · 10 ข้อ':'5 ข้อ'} · สุ่มจากคลัง ${bank.length} ข้อ</small><h2>${title}</h2><div style="font-size:15px">เกณฑ์ผ่าน ${thr}% · รหัสชุดข้อสอบ <code>${QUIZ.code}</code></div></div><div class="qcount" id="qcount">0/${n}</div></div>
+ ${QUIZ.items.map((it,qi)=>`<div class="card" id="q${qi}"><div class="qnum">ข้อที่ ${qi+1}</div><div class="qtext">${fmt(it.q)}</div><div class="opts">${it.opts.map((o,oi)=>`<button class="opt" id="q${qi}o${oi}" onclick="pick(${qi},${oi})"><span class="ol">${'กขคง'[oi]}</span><span>${fmt(o.t)}</span></button>`).join('')}</div></div>`).join('')}
+ <div class="center"><button class="btn ok" style="padding:13px 34px;font-size:18px" onclick="submitQuiz()">✔ ส่งคำตอบ</button><button class="btn ghost" onclick="${isF?'goHome()':`openLesson(${SECTIONS.findIndex(x=>x.key===key)})`}">ยกเลิก</button></div></main>`);
+}
+function pick(qi,oi){QUIZ.ans[qi]=oi;for(let j=0;j<4;j++){const b=document.getElementById(`q${qi}o${j}`);if(b)b.classList.toggle('sel',j===oi);}
+ document.getElementById('qcount').textContent=QUIZ.ans.filter(a=>a!==null).length+'/'+QUIZ.n;}
+function submitQuiz(){
+ const miss=QUIZ.ans.findIndex(a=>a===null);
+ if(miss>=0){toast('กรุณาตอบให้ครบทุกข้อ (ยังไม่ได้ตอบข้อ '+(miss+1)+')');document.getElementById('q'+miss).scrollIntoView({behavior:'smooth',block:'center'});return;}
+ const s=me(),key=QUIZ.key,n=QUIZ.n,isF=key==='final';
+ const score=QUIZ.items.reduce((a,it,i)=>a+(it.opts[QUIZ.ans[i]].ok?1:0),0);
+ const pct=Math.round(score/n*100),thr=isF?DB.settings.finalPassPct:DB.settings.passPct,pass=pct>=thr;
+ const now=new Date().toISOString();
+ const r=s.quizzes[key]||{attempts:0,best:0,last:0,total:n,passed:false,history:[]};
+ r.attempts++;r.last=score;r.best=Math.max(r.best,score);r.total=n;if(pass)r.passed=true;
+ r.history.push({d:now,score,total:n,code:QUIZ.code,pass});s.quizzes[key]=r;s.updated=now;
+ if(isF&&pass){if(!s.cert){const y=new Date().getFullYear()+543;s.cert={no:`CERT-${y}-${Math.random().toString(36).slice(2,7).toUpperCase()}`,date:now,score,total:n};}else if(score>s.cert.score){s.cert.score=score;}}
+ saveDB();renderResult(score,n,pct,pass,thr);
+}
+function renderResult(score,n,pct,pass,thr){
+ const key=QUIZ.key,isF=key==='final',s=me();const i=SECTIONS.findIndex(x=>x.key===key);
+ let btns=`<button class="btn ghost" onclick="startQuiz('${key}')">🎲 ทำใหม่ (สุ่มชุดใหม่)</button>`;
+ if(!isF)btns+=`<button class="btn ghost" onclick="openLesson(${i})">📖 ทบทวนบทเรียน</button>`;
+ if(pass&&!isF&&i<3)btns+=`<button class="btn" onclick="openLesson(${i+1})">ไปส่วนที่ ${i+2} →</button>`;
+ if(pass&&!isF&&allSec(s))btns+=`<button class="btn" onclick="renderSummary()">🗒️ ดูการ์ดสรุป</button>`;
+ if(isF&&pass)btns+=`<button class="btn gold" onclick="renderCert(ME)">🏅 รับเกียรติบัตร</button>`;
+ btns+=`<button class="btn ghost" onclick="goHome()">🏠 หน้าหลัก</button>`;
+ view(header()+`<main class="wrap"><div class="card res-top"><div class="ring ${pass?'pass':'fail'}"><b>${score}/${n}</b><span>${pct}%</span></div>
+ <h2>${pass?'🎉 ยินดีด้วย! คุณผ่านแบบทดสอบ':'💪 ยังไม่ผ่านเกณฑ์ ลองอีกครั้งนะ'}</h2>
+ <p class="mut">เกณฑ์ผ่าน ${thr}% · รหัสชุดข้อสอบ <code>${QUIZ.code}</code></p>
+ ${pass&&!isF&&i<3?`<p>🔓 ปลดล็อก <b>ส่วนที่ ${i+2}: ${SECTIONS[i+1].title}</b> แล้ว</p>`:''}
+ ${pass&&!isF&&allSec(s)?'<p>🔓 เรียนครบทั้ง 4 ส่วนแล้ว ปลดล็อก <b>การ์ดสรุป</b> และ <b>แบบทดสอบประมวลความรู้</b></p>':''}
+ <div>${btns}</div></div>
+ <h3>🔎 เฉลยและคำอธิบาย</h3>
+ ${QUIZ.items.map((it,qi)=>{const a=QUIZ.ans[qi],ok=it.opts[a].ok;return `<div class="card"><div class="qnum">ข้อที่ ${qi+1} ${ok?'<span class="chip pass">ถูก</span>':'<span class="chip" style="background:#fee2e2;color:#b91c1c">ผิด</span>'}</div><div class="qtext">${fmt(it.q)}</div><div class="opts">${it.opts.map((o,oi)=>`<div class="opt ${o.ok?'right':(oi===a?'wrong':'')}"><span class="ol">${'กขคง'[oi]}</span><span>${fmt(o.t)} ${o.ok?' ✔':''}${oi===a&&!o.ok?' (คำตอบของคุณ)':''}</span></div>`).join('')}</div><div class="exp">💡 ${fmt(it.e)}</div></div>`;}).join('')}
+ <div class="center">${btns}</div></main>`);
+ if(pass)confetti();
+}
+
+/* ================== การ์ดสรุป ================== */
+function renderSummary(){
+ const s=me();if(!allSec(s)){toast('ต้องผ่านครบ 4 ส่วนก่อน');return;}
+ const fp=passed(s,'final');
+ const st=DB.settings;
+ view(header()+`<main class="wrap"><div class="sumcard"><div class="sum-h"><div style="font-size:46px">🗒️</div><h2>การ์ดสรุปบทเรียน</h2><div>${st.subjectCode} ${st.subjectName} (${st.gradeLevel})<br>${st.unitName}</div>
+ <h3 style="color:#fff;margin:10px 0 0">${esc(s.name)} ${s.room?'· '+esc(s.room):''} ${s.no?'· เลขที่ '+esc(s.no):''}</h3></div>
+ <div class="sum-b"><div class="scorebar">${SECTIONS.map(x=>`<div>ส่วนที่ ${x.no}<b>${s.quizzes[x.key].best}/5</b></div>`).join('')}<div>ประมวลความรู้<b>${fp?s.quizzes.final.best+'/10':'—'}</b></div></div>
+ <div class="sum-grid">${SECTIONS.map(x=>`<div class="sum-item" style="--c:${x.color}"><h4>${x.icon} ${x.no}. ${x.title}</h4><ul>${SUMMARY[x.key].map(t=>`<li>${t}</li>`).join('')}</ul></div>`).join('')}</div>
+ <p class="center mut" style="margin-top:16px">✅ เรียนครบทั้ง 4 ส่วนเมื่อ ${thDate(s.updated)}</p></div></div>
+ <div class="center no-print" style="margin-top:18px">${fp?`<button class="btn gold" onclick="renderCert(ME)">🏅 ดูเกียรติบัตร</button>`:`<button class="btn" onclick="startQuiz('final')">🏁 ทำแบบทดสอบประมวลความรู้ (10 ข้อ)</button>`}
+ <button class="btn ghost" onclick="window.print()">🖨️ พิมพ์/บันทึกการ์ด</button><button class="btn ghost" onclick="goHome()">🏠 หน้าหลัก</button></div></main>`);
+}
+
+/* ================== เกียรติบัตร ================== */
+function renderCert(id,fromAdmin){
+ const s=DB.students[id];if(!s||!s.cert){toast('ยังไม่มีเกียรติบัตร');return;}
+ const c=s.cert,pct=Math.round(c.score/c.total*100);
+ const st=DB.settings;
+ const top=fromAdmin?adminHeader():header();
+ view(top+`<main class="wrap" style="max-width:1080px"><div class="center no-print" style="margin-bottom:14px">
+ <button class="btn gold" onclick="window.print()">🖨️ พิมพ์ / บันทึกเป็น PDF</button>
+ <button class="btn ghost" onclick="${fromAdmin?'renderAdmin()':'goHome()'}">← ย้อนกลับ</button>
+ <div class="mut" style="font-size:14px">เคล็ดลับ: ในหน้าพิมพ์ เลือก “แนวนอน” และติ๊ก “กราฟิกพื้นหลัง”</div></div>
+ <div class="cert-scroll"><div class="cert"><div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+ <div class="cert-in">
+  <div><div style="font-size:44px;line-height:1">🏅</div><h1 class="cert-title">เกียรติบัตร</h1><div class="cert-sub">ขอมอบเกียรติบัตรฉบับนี้ไว้เพื่อแสดงว่า</div></div>
+  <div class="cert-name">${esc(s.name)}</div>
+  <div class="cert-body">${s.room?'นักเรียนชั้น '+esc(s.room)+(s.no?' เลขที่ '+esc(s.no):'')+'<br>':''}
+  ได้ผ่านการเรียนรู้และการประเมินผล บทเรียนออนไลน์ รายวิชา ${st.subjectName} (${st.subjectCode}) ${st.gradeLevel}<br>
+  <b>${st.unitName}</b> ครบทั้ง 4 ส่วน<br>
+  ด้วยคะแนนแบบทดสอบประมวลความรู้ความเข้าใจ <b>${c.score}/${c.total} คะแนน (${pct}%)</b><br>
+  ให้ไว้ ณ วันที่ ${thDate(c.date)}</div>
+  <div class="cert-sign"><div class="certno">เลขที่เกียรติบัตร<br><b>${c.no}</b></div>
+   <div class="seal"><b>ผ่าน</b>${st.subjectCode}<br>หน่วยที่ 1</div>
+   <div class="sig"><div class="sg">${st.teacherName}</div><div class="ln">( ${st.teacherName} )<br>${st.teacherPos}</div></div></div>
+ </div></div></div></main>`);
+ if(!fromAdmin)confetti();
+}
+
+/* ================== ระบบผู้ดูแล ================== */
+function openAdminLogin(){
+ modal(`<h2>🔐 เข้าสู่ระบบผู้ดูแล</h2><form onsubmit="adminLogin();return false;"><label>ชื่อผู้ใช้</label><input id="admU" autocomplete="off"><label>รหัสผ่าน</label><input id="admP" type="password">
+ <div style="margin-top:16px;text-align:right"><button type="button" class="btn ghost" onclick="closeModal()">ยกเลิก</button><button class="btn" type="submit">เข้าสู่ระบบ</button></div></form>`);
+ setTimeout(()=>document.getElementById('admU').focus(),50);
+}
+function adminLogin(){
+ if(document.getElementById('admU').value.trim()===ADMIN_USER&&document.getElementById('admP').value===ADMIN_PASS){sessionStorage.setItem('circle3_admin','1');closeModal();renderAdmin();}
+ else toast('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+}
+function adminLogout(){sessionStorage.removeItem('circle3_admin');renderLogin();}
+function adminHeader(){return `<header class="topbar no-print" style="background:#1e1b4b;color:#fff"><div class="brand" style="color:#fff" onclick="renderAdmin()">🛡️ ระบบผู้ดูแล · ${DB.settings.subjectCode} ${DB.settings.subjectName}</div><div style="flex:1"></div><button class="btn sm ghost" onclick="adminLogout()">ออกจากระบบ</button></header>`;}
+
+let ADMTAB='students';
+function renderAdmin(tab){
+ if(sessionStorage.getItem('circle3_admin')!=='1'){renderLogin();return;}
+ if(tab)ADMTAB=tab;DB=loadDB();
+ const list=Object.values(DB.students);
+ const nAll=list.length,nSec=list.filter(allSec).length,nCert=list.filter(s=>s.cert).length;
+ const fs=list.filter(s=>s.quizzes.final).map(s=>s.quizzes.final.best);
+ const avg=fs.length?(fs.reduce((a,b)=>a+b,0)/fs.length).toFixed(1):'—';
+ const st=DB.settings;
+ const tabs=[['students','👥 ผลการเรียน'],['bank','📚 คลังข้อสอบ'],['settings','⚙️ ตั้งค่าและรายละเอียดวิชา']].map(t=>`<button class="${ADMTAB===t[0]?'on':''}" onclick="renderAdmin('${t[0]}')">${t[1]}</button>`).join('');
+ let body='';
+ if(ADMTAB==='students'){
+  body=`<div class="stats"><div class="stat">นักเรียนทั้งหมด<b>${nAll}</b></div><div class="stat">เรียนครบ 4 ส่วน<b>${nSec}</b></div><div class="stat">ได้รับเกียรติบัตร<b>${nCert}</b></div><div class="stat">คะแนนประมวลเฉลี่ย (สูงสุดของแต่ละคน)<b>${avg}</b></div></div>
+  <div class="card"><div class="toolbar"><input id="admQ" placeholder="🔎 ค้นหาชื่อ / ชั้น" oninput="fillAdminTable()"><select id="admF" onchange="fillAdminTable()" style="max-width:220px"><option value="">ทุกสถานะ</option><option value="cert">ได้รับเกียรติบัตร</option><option value="sec">เรียนครบ รอสอบประมวล</option><option value="learn">กำลังเรียน</option></select><div style="flex:1"></div>
+  <button class="btn sm ok" onclick="exportCSV()">⬇️ ส่งออก CSV (Excel)</button><button class="btn sm bad" onclick="clearAll()">🗑️ ล้างข้อมูลทั้งหมด</button></div>
+  <div class="tbl-wrap"><table class="adm"><thead><tr><th>#</th><th>ชื่อ-นามสกุล</th><th>ชั้น</th><th>เลขที่</th><th>ส่วน 1</th><th>ส่วน 2</th><th>ส่วน 3</th><th>ส่วน 4</th><th>ประมวล</th><th>สถานะ</th><th>ใช้งานล่าสุด</th><th>จัดการ</th></tr></thead><tbody id="admBody"></tbody></table></div>
+  <p class="mut" style="font-size:13.5px">คะแนนแสดงเป็นคะแนนสูงสุด (จำนวนครั้งที่สอบ) · ✔ = ผ่านเกณฑ์ · ข้อมูลเก็บในเบราว์เซอร์ของเครื่องนี้</p></div>`;
+ }else if(ADMTAB==='bank'){
+  const blocks=[...SECTIONS.map(x=>[`ส่วนที่ ${x.no}: ${x.title} (สุ่ม 5 จาก ${BANK[x.key].length} ข้อ)`,BANK[x.key]]),[`แบบทดสอบประมวลความรู้ (สุ่ม 10 จาก ${FINAL_BANK.length} ข้อ)`,FINAL_BANK]];
+  body=blocks.map(b=>`<div class="card"><h3>${b[0]}</h3>${b[1].map((q,i)=>`<div class="bank-q"><b>${i+1}.</b> ${fmt(q.q)}<br><span class="a">✔ ${fmt(q.c[0])}</span><br><small class="mut">ตัวลวง: ${q.c.slice(1).map(fmt).join(' | ')}</small></div>`).join('')}</div>`).join('');
+ }else{
+  body=`<div class="card" style="max-width:640px"><h3>⚙️ ตั้งค่ารายละเอียดวิชาและเกณฑ์การผ่าน</h3>
+  <div style="margin:14px 0 4px"><b>🎨 ธีมหน้าตาเว็บ</b><div class="mut" style="font-size:13.5px">ไฟล์นี้ใช้ธีม “นีโอ-บรูทัล 💥” อย่างเดียว (ขอบดำหนา เงาแข็ง สีจัดจ้าน) ไม่มีตัวเลือกสลับธีม</div></div>
+  <hr style="margin:18px 0;border:0;border-top:1px solid var(--bd)">
+  <label>ชื่อรายวิชา</label><input id="setSubName" value="${esc(st.subjectName)}">
+  <label>รหัสวิชา</label><input id="setSubCode" value="${esc(st.subjectCode)}">
+  <label>ระดับชั้น</label><input id="setGrade" value="${esc(st.gradeLevel)}">
+  <label>ชื่อหน่วยการเรียนรู้</label><input id="setUnit" value="${esc(st.unitName)}">
+  <label>ชื่อ-นามสกุล ครูผู้สอน (แสดงบนเกียรติบัตร)</label><input id="setTeacher" value="${esc(st.teacherName)}">
+  <label>ตำแหน่ง ครูผู้สอน</label><input id="setTeacherPos" value="${esc(st.teacherPos)}">
+  <hr style="margin:20px 0;border:0;border-top:1px solid var(--bd)">
+  <label>เกณฑ์ผ่านแบบทดสอบย่อย (5 ข้อ) – ร้อยละ</label><input id="setA" type="number" min="0" max="100" value="${st.passPct}">
+  <label>เกณฑ์ผ่านแบบทดสอบประมวลความรู้ (10 ข้อ) – ร้อยละ</label><input id="setB" type="number" min="0" max="100" value="${st.finalPassPct}">
+  <div style="margin-top:20px"><button class="btn" onclick="saveSettings()">💾 บันทึกการตั้งค่า</button></div></div>`;
+ }
+ view(adminHeader()+`<main class="wrap" style="max-width:1200px"><div class="tabs">${tabs}</div>${body}</main>`);
+ if(ADMTAB==='students')fillAdminTable();
+}
+
+function stStatus(s){return s.cert?'cert':allSec(s)?'sec':'learn';}
+function stLabel(s){const k=stStatus(s);return k==='cert'?'<span class="chip pass">🏅 ได้เกียรติบัตร</span>':k==='sec'?'<span class="chip go">รอสอบประมวล</span>':`<span class="chip lock">กำลังเรียน (${SECTIONS.filter(x=>passed(s,x.key)).length}/4)</span>`;}
+function cell(s,k){const r=s.quizzes[k];if(!r)return '<span class="noc">–</span>';return `<span class="${r.passed?'okc':''}">${r.best}/${r.total}${r.passed?' ✔':''}</span><br><small class="mut">(${r.attempts} ครั้ง)</small>`;}
+function fillAdminTable(){
+ const q=(document.getElementById('admQ').value||'').toLowerCase(),f=document.getElementById('admF').value;
+ const list=Object.values(DB.students).filter(s=>(s.name+' '+s.room).toLowerCase().includes(q)&&(!f||stStatus(s)===f))
+  .sort((a,b)=>(a.room||'').localeCompare(b.room||'')||(+a.no||0)-(+b.no||0)||a.name.localeCompare(b.name,'th'));
+ document.getElementById('admBody').innerHTML=list.length?list.map((s,i)=>`<tr><td>${i+1}</td><td class="l">${esc(s.name)}</td><td>${esc(s.room)}</td><td>${esc(s.no)}</td>${SECTIONS.map(x=>`<td>${cell(s,x.key)}</td>`).join('')}<td>${cell(s,'final')}</td><td>${stLabel(s)}</td><td><small>${thDT(s.updated)}</small></td>
+ <td style="white-space:nowrap"><button class="btn sm ghost" onclick="stDetail('${encodeURIComponent(s.id)}')">ดู</button>${s.cert?`<button class="btn sm gold" onclick="renderCert(decodeURIComponent('${encodeURIComponent(s.id)}'),true)">🏅</button>`:''}<button class="btn sm bad" onclick="delSt('${encodeURIComponent(s.id)}')">ลบ</button></td></tr>`).join(''):'<tr><td colspan="12" class="mut">ยังไม่มีข้อมูลนักเรียน</td></tr>';
+}
+function stDetail(eid){
+ const s=DB.students[decodeURIComponent(eid)];if(!s)return;
+ const keys=[...SECTIONS.map(x=>[x.key,`ส่วนที่ ${x.no}`]),['final','ประมวลความรู้']];
+ modal(`<h2>👤 ${esc(s.name)}</h2><p class="mut">ชั้น ${esc(s.room)||'-'} · เลขที่ ${esc(s.no)||'-'}<br>เข้าเรียนครั้งแรก ${thDT(s.created)} · ล่าสุด ${thDT(s.updated)}${s.cert?`<br>🏅 เกียรติบัตรเลขที่ ${s.cert.no} (${thDate(s.cert.date)})`:''}</p>
+ ${keys.map(k=>{const r=s.quizzes[k[0]];return `<h4 style="margin:12px 0 4px">${k[1]}</h4>`+(r?`<table class="tb"><tr><th>ครั้ง</th><th>วันเวลา</th><th>คะแนน</th><th>รหัสชุด</th></tr>${r.history.map((h,i)=>`<tr><td>${i+1}</td><td>${thDT(h.d)}</td><td class="${h.pass?'okc':''}">${h.score}/${h.total}${h.pass?' ✔':''}</td><td><small>${h.code}</small></td></tr>`).join('')}</table>`:'<span class="mut">ยังไม่ได้สอบ</span>');}).join('')}
+ <div style="text-align:right;margin-top:14px"><button class="btn" onclick="closeModal()">ปิด</button></div>`);
+}
+function delSt(eid){const id=decodeURIComponent(eid),s=DB.students[id];if(!s)return;if(!confirm('ลบข้อมูลของ "'+s.name+'" ใช่หรือไม่?'))return;delete DB.students[id];saveDB();renderAdmin();toast('ลบข้อมูลแล้ว');}
+function clearAll(){if(!confirm('ล้างข้อมูลนักเรียนทั้งหมดในเครื่องนี้?'))return;if(!confirm('ยืนยันอีกครั้ง: ข้อมูลจะหายถาวร'))return;DB.students={};saveDB();renderAdmin();toast('ล้างข้อมูลทั้งหมดแล้ว');}
+
+function setTheme(t){DB.settings.theme='brutal';saveDB();document.body.dataset.theme='brutal';renderAdmin('settings');toast('ไฟล์นี้ใช้ธีม "นีโอ-บรูทัล" อย่างเดียว');}
+function saveSettings(){
+  DB.settings.subjectName=document.getElementById('setSubName').value.trim()||'คณิตศาสตร์เพิ่มเติม';
+  DB.settings.subjectCode=document.getElementById('setSubCode').value.trim()||'ค23202';
+  DB.settings.gradeLevel=document.getElementById('setGrade').value.trim()||'ชั้นมัธยมศึกษาปีที่ 3';
+  DB.settings.unitName=document.getElementById('setUnit').value.trim()||'บทที่ 1 วงกลม';
+  DB.settings.teacherName=document.getElementById('setTeacher').value.trim()||'จิรพันธ์ บัวแก้ว';
+  DB.settings.teacherPos=document.getElementById('setTeacherPos').value.trim()||'ครูผู้สอน';
+  DB.settings.passPct=Math.min(100,Math.max(0,+document.getElementById('setA').value||0));
+  DB.settings.finalPassPct=Math.min(100,Math.max(0,+document.getElementById('setB').value||0));
+  saveDB();
+  toast('บันทึกการตั้งค่าเรียบร้อยแล้ว');
+}
+
+function exportCSV(){
+ const st=DB.settings;
+ const head=['ชื่อ-นามสกุล','ชั้น','เลขที่','ส่วนที่1 (สูงสุด/5)','ส่วนที่1 ครั้ง','ส่วนที่2 (สูงสุด/5)','ส่วนที่2 ครั้ง','ส่วนที่3 (สูงสุด/5)','ส่วนที่3 ครั้ง','ส่วนที่4 (สูงสุด/5)','ส่วนที่4 ครั้ง','ประมวล (สูงสุด/10)','ประมวล ครั้ง','สถานะ','เลขที่เกียรติบัตร','วันที่ผ่าน','เข้าเรียนครั้งแรก','ใช้งานล่าสุด'];
+ const rows=Object.values(DB.students).map(s=>{const g=k=>s.quizzes[k]?[s.quizzes[k].best,s.quizzes[k].attempts]:['',''];const st=stStatus(s);
+  return [s.name,s.room,s.no,...g('s1'),...g('s2'),...g('s3'),...g('s4'),...g('final'),st==='cert'?'ได้รับเกียรติบัตร':st==='sec'?'เรียนครบ รอสอบประมวล':'กำลังเรียน',s.cert?s.cert.no:'',s.cert?thDate(s.cert.date):'',thDT(s.created),thDT(s.updated)];});
+ const csv='\uFEFF'+[head,...rows].map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download=`ผลการเรียน_${st.subjectCode}_${st.unitName}.csv`;a.click();
+}
+
+/* ================== เครื่องมือทั่วไป ================== */
+function modal(html){closeModal();document.body.insertAdjacentHTML('beforeend',`<div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()"><div class="modal card">${html}</div></div>`);}
+function closeModal(){const m=document.getElementById('modal');if(m)m.remove();}
+function toast(msg){document.querySelectorAll('.toast').forEach(t=>t.remove());const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2600);}
+function confetti(){const cs=['#f59e0b','#4f46e5','#22c55e','#ef4444','#0ea5e9','#ec4899'];for(let i=0;i<90;i++){const d=document.createElement('div');d.className='conf';d.style.left=Math.random()*100+'vw';d.style.background=cs[i%cs.length];d.style.animationDuration=(2+Math.random()*2.5)+'s';d.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),5500);}}
+
+/* ================== เริ่มต้น ================== */
+if(sessionStorage.getItem('circle3_admin')==='1')renderAdmin();
+else if(ME&&DB.students[ME])goHome();
+else renderLogin();
+</script>
+</body>
+</html>
