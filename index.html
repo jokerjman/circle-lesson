@@ -748,6 +748,7 @@ function renderLogin(){
   <form onsubmit="doLogin();return false;" style="margin-top:10px">
   <label>ชื่อ-นามสกุล *</label><input id="inName" placeholder="เช่น ด.ญ.สมใจ ใฝ่เรียน" autocomplete="off">
   <div class="row"><div><label>ชั้น</label><input id="inRoom" placeholder="ม.3/1"></div><div><label>เลขที่</label><input id="inNo" type="number" min="1" placeholder="1"></div></div>
+  <label>รหัสนักเรียน (สำหรับส่งคะแนนให้ครู)</label><input id="inSid" inputmode="numeric" autocomplete="off" placeholder="เช่น 27636">
   <button class="btn" style="width:100%;margin:18px 0 0;padding:13px" type="submit">🚀 เข้าสู่บทเรียน</button></form>
   <p class="mut" style="font-size:13.5px;margin:12px 0 0">ใช้ชื่อ ชั้น และเลขที่เดิมเพื่อเรียนต่อจากครั้งก่อน</p>
   <button class="linkbtn" onclick="openAdminLogin()">🔐 สำหรับผู้ดูแลระบบ</button></div></div>`);
@@ -757,11 +758,12 @@ function renderLogin(){
 function doLogin(){
  const name=document.getElementById('inName').value.trim().replace(/\s+/g,' ');
  const room=document.getElementById('inRoom').value.trim(),no=document.getElementById('inNo').value.trim();
+ const sid=document.getElementById('inSid').value.trim();
  if(name.length<2){toast('กรุณากรอกชื่อ-นามสกุล');return;}
  const id=(name+'|'+room+'|'+no).toLowerCase();
  const now=new Date().toISOString();
- if(DB.students[id]){toast('ยินดีต้อนรับกลับ '+name+' 👋');DB.students[id].updated=now;}
- else{DB.students[id]={id,name,room,no,created:now,updated:now,quizzes:{}};toast('ยินดีต้อนรับ '+name+' 🎉');}
+ if(DB.students[id]){toast('ยินดีต้อนรับกลับ '+name+' 👋');DB.students[id].updated=now;if(sid)DB.students[id].sid=sid;}
+ else{DB.students[id]={id,name,room,no,sid:sid||'',created:now,updated:now,quizzes:{}};toast('ยินดีต้อนรับ '+name+' 🎉');}
  if(THEME_PICKED){DB.students[id].theme=THEME_PICKED;THEME_PICKED=null;}saveDB();ME=id;sessionStorage.setItem('circle3_me',id);goHome();
 }
 function logout(){if(!confirm('ต้องการออกจากระบบหรือไม่?'))return;ME=null;sessionStorage.removeItem('circle3_me');renderLogin();}
@@ -1066,6 +1068,37 @@ function startQuiz(key){
 }
 function pick(qi,oi){QUIZ.ans[qi]=oi;for(let j=0;j<4;j++){const b=document.getElementById(`q${qi}o${j}`);if(b)b.classList.toggle('sel',j===oi);}
  document.getElementById('qcount').textContent=QUIZ.ans.filter(a=>a!==null).length+'/'+QUIZ.n;}
+// ===== ส่งผลการเรียนเข้าระบบบันทึกงานครูผู้สอน (Class Tracker) อัตโนมัติ =====
+// วางบล็อกนี้ก่อนฟังก์ชัน submitQuiz และเพิ่มการเรียก syncToTracker(s,key,score,n,pass); ต่อจาก saveDB(); ใน submitQuiz
+const TRACKER_SYNC_URL = 'https://script.google.com/macros/s/AKfycbxw7GlkSeoOHr1PRz3M5xTCNnjfCvlgPIycv6WwpCpLceaxkbPNDWiJsfQZ4lMoixNxZA/exec';
+const TRACKER_SYNC_TOKEN = 'CL-a272389bf28788c5';
+function syncToTracker(s, key, score, n, pass) {
+  try {
+    if (!s.sid) { toast('ยังไม่ได้กรอกรหัสนักเรียน — คะแนนครั้งนี้ยังไม่ส่งถึงครู (ออกจากระบบ แล้วกรอกรหัสนักเรียนในหน้าเข้าสู่ระบบ)'); return; }
+    const prog = {};
+    for (const k in s.quizzes) {
+      const r = s.quizzes[k];
+      prog[k] = { best: r.best, total: r.total, attempts: r.attempts, passed: !!r.passed, last: r.last };
+    }
+    const payload = {
+      source: 'circle-lesson',
+      token: TRACKER_SYNC_TOKEN,
+      studentId: s.sid,
+      student: { name: s.name, room: s.room, no: s.no },
+      event: { key: key, score: score, total: n, passed: !!pass, code: (typeof QUIZ !== 'undefined' ? QUIZ.code : ''), at: new Date().toISOString() },
+      progress: prog,
+      cert: s.cert ? { no: s.cert.no, score: s.cert.score, total: s.cert.total, date: s.cert.date } : null
+    };
+    const body = JSON.stringify(payload);
+    if (navigator.sendBeacon && navigator.sendBeacon(TRACKER_SYNC_URL, new Blob([body], { type: 'text/plain' }))) return;
+    fetch(TRACKER_SYNC_URL, {
+      method: 'POST', mode: 'no-cors', keepalive: true,
+      headers: { 'Content-Type': 'text/plain' },
+      body: body
+    }).catch(function () {});
+  } catch (e) {}
+}
+
 function submitQuiz(){
  const miss=QUIZ.ans.findIndex(a=>a===null);
  if(miss>=0){toast('กรุณาตอบให้ครบทุกข้อ (ยังไม่ได้ตอบข้อ '+(miss+1)+')');document.getElementById('q'+miss).scrollIntoView({behavior:'smooth',block:'center'});return;}
@@ -1077,7 +1110,7 @@ function submitQuiz(){
  r.attempts++;r.last=score;r.best=Math.max(r.best,score);r.total=n;if(pass)r.passed=true;
  r.history.push({d:now,score,total:n,code:QUIZ.code,pass});s.quizzes[key]=r;s.updated=now;
  if(isF&&pass){if(!s.cert){const y=new Date().getFullYear()+543;s.cert={no:`CERT-${y}-${Math.random().toString(36).slice(2,7).toUpperCase()}`,date:now,score,total:n};}else if(score>s.cert.score){s.cert.score=score;}}
- saveDB();renderResult(score,n,pct,pass,thr);
+ saveDB();syncToTracker(s,key,score,n,pass);renderResult(score,n,pct,pass,thr);
 }
 function renderResult(score,n,pct,pass,thr){
  const key=QUIZ.key,isF=key==='final',s=me();const i=SECTIONS.findIndex(x=>x.key===key);
